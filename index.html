@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velopipe Dashboard | Non-Disruptive Innovation Pipelines & Strategy</title>
+<!-- BROWSER TAB ICON & SEARCH ENGINE SNIPPET ICON -->
+<link rel="icon" type="image/png" sizes="32x32" href="logo2.png">
+<link rel="icon" type="image/png" sizes="48x48" href="logo2.png">
+<link rel="shortcut icon" href="logo2.png" type="image/x-icon">
+<!-- APPLE MOBILE HOME SCREEN APPS -->
+<link rel="apple-touch-icon" href="logo2.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://googleapis.com; font-src 'self' https://gstatic.com; script-src 'self' 'unsafe-inline' https://gstatic.com https://googleapis.com https://googletagmanager.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://google-analytics.com;">
+<meta name="description" content="Architecting industrial innovation pipelines with non-disruptive strategies. Analyze framework transitions across modern electronics, automotive, and aviation infrastructure.">
+<link rel="preconnect" href="https://googleapis.com">
+<link rel="preconnect" href="https://gstatic.com" crossorigin>
+<link href="https://googleapis.com" rel="stylesheet">
+<link rel="stylesheet" href="https://cloudflare.com">
+<style>
+
+body.splash-in-view .left-nav-menu-stack,
+body.splash-in-view .nav-toggle-btn {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.splash-in-view {
+  padding-left: 0px !important;
+}
+
+:root{
+  --nav-width: 220px;
+  --nav-collapsed-width: 50px;
+  --nav-bg: #0b0f12;
+  --nav-ink: #cbd5e1;
+  --nav-accent: #6D4B8F;
+  --nav-shadow: 6px 0 18px rgba(0,0,0,0.45);
+  --nav-backdrop: rgba(7,11,14,0.16);
+}
+
+body {
+  transition: padding-left 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+
+body.nav-visible:not(.splash-in-view),
+body.nav-collapsed:not(.splash-in-view),
+body.nav-visible,
+body.nav-collapsed {
+  padding-left: 0px !important;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-main: #2b3137;
+  --bg-card: #2b3137;
+  --splash-bg: #111827;
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --border-muted: rgba(222, 206, 239, 0.25);
+  --nav-dark: #0b0f12;
+  --nav-accent: #6D4B8F;
+  --toggle-bg: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+}
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: block;
+  overflow: visible;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  transition: padding-left 0.28s ease;
+}
+
+.splash-overlay {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--splash-bg);
+  z-index: 10;
+  cursor: pointer;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  will-change: opacity, transform;
+}
+
+.splash-content-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  text-align: center !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100vh !important;
+  padding-left: 0 !important;
+}
+
+.splash-content-panel *, .splash-direct-intro-container, .splash-card-text {
+  text-align: center !important;
+}
+
+.splash-event-badge {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #DECEEF;
+  text-align: center !important;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.splash-ibm-arrow {
+  position: absolute !important;
+  bottom: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  font-size: 3.5rem !important;
+  font-weight: 900 !important;
+  color: #DECEEF !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  line-height: 1 !important;
+  animation: bounceArrow 2s ease-in-out infinite !important;
+  text-shadow: 0 0 14px rgba(222, 206, 239, 0.65), 0 0 4px rgba(255, 255, 255, 0.85) !important;
+  cursor: pointer;
+  z-index: 11;
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.75; }
+  50% { transform: translateX(-50%) translateY(12px); opacity: 1; }
+}
+
+/* nav container (overlay) */
+.left-nav-menu-stack {
+  position: fixed !important;
+  inset: 0 auto 0 0 !important;
+  height: 100vh !important;
+  width: var(--nav-width) !important;
+  max-width: 85vw !important;
+  padding: 56px 14px 20px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+  background-color: var(--nav-bg) !important;
+  z-index: 1200 !important;
+  box-shadow: var(--nav-shadow) !important;
+  border-right: 1px solid rgba(255,255,255,0.03) !important;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), width 200ms ease;
+  transform: translateX(0);
+  backdrop-filter: blur(6px);
+}
+
+/* collapsed thin state */
+.left-nav-menu-stack.collapsed {
+  width: var(--nav-collapsed-width) !important;
+  padding: 72px 8px 20px 8px !important;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.35) !important;
+}
+
+/* backdrop for focus when nav open */
+.left-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--nav-backdrop);
+  z-index: 1150;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.left-nav-backdrop.visible { 
+pointer-events: auto; 
+opacity: 1; 
+}
+
+/* nav button (professional compact) */
+.left-nav-menu-stack .nav-item-action-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 44px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--nav-ink);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  transition: background-color 160ms ease, transform 160ms ease, color 160ms ease;
+}
+
+/* subtle hover & active */
+.left-nav-menu-stack .nav-item-action-link:hover {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: #fff;
+  transform: translateX(4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.left-nav-menu-stack button .btn-char-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* compact icon wrapper */
+.left-nav-menu-stack .nav-icon { 
+width: 20px; 
+height: 20px; 
+display: inline-flex; 
+align-items:center; 
+justify-content:center; 
+color: var(--nav-accent); 
+}
+
+.left-nav-menu-stack button .btn-text-label {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.left-nav-menu-stack.collapsed button .btn-text-label {
+  display: none !important;
+}
+
+/* ensure visible modifier */
+.nav-item-action-link.btn-visible { 
+opacity: 1; 
+visibility: visible; 
+pointer-events: auto; 
+}
+
+/* floating scroll-top sits above nav */
+.scroll-top-btn { 
+z-index: 1300; 
+}
+
+.left-nav-menu-stack.collapsed button {
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+.nav-toggle-inline {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  left: auto !important;
+  background: transparent !important;
+  border: none !important;
+  color: #DECEEF !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  z-index: 100005 !important;
+  transition: all 0.2s ease;
+  padding: 0 !important;
+}
+
+.nav-toggle-inline:hover {
+  color: #fff !important;
+  transform: scale(1.1);
+}
+
+.nav-toggle-inline svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.5;
+}
+
+.custom-footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0 24px !important;
+}
+
+.footer-left-amethyst-zone {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  justify-content: flex-start !important;
+  display: flex !important;
+  gap: 24px !important;
+}
+
+/* ========================================================
+   MODULE 3: RESTORED ORIGINAL CANVAS & CARD STYLES
+   ======================================================== */
+
+.intro-card {
+  padding: 20px 24px;
+  width: 100%;
+}
+
+.intro-card-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+.section-wrapper {
+  width: calc(100% - 48px);
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.w-950 { max-width: 950px; }
+.w-1000 { max-width: 1000px; }
+.w-880 { max-width: 880px; }
+
+.intro-card,
+.section-wrapper ul li {
+  background-color: var(--bg-main) !important;
+  background-image: radial-gradient(rgba(222, 206, 239, 0.10) 2px, transparent 2px) !important;
+  background-size: 32px 32px !important;
+  background-position: center center !important;
+  border: 1px solid var(--border-muted) !important;
+  box-shadow: none !important;
+  position: relative;
+  transition: border-color 0.2s ease, background-image 0.2s ease, transform 0.2s ease;
+}
+
+li {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--text-main);
+  gap: 8px;
+}
+
+.w-950 li { padding: 14px 18px; font-size: 1.05rem; }
+.w-1000 li { padding: 12px 16px; font-size: 1rem; }
+.w-880 li { padding: 12px 16px; font-size: 1rem; }
+
+.section-wrapper ul li:hover {
+  transform: translateY(-2px);
+  background-color: var(--bg-main) !important;
+  background-image: radial-gradient(rgba(222, 206, 239, 0.20) 2px, transparent 2px) !important;
+  border-color: rgba(222, 206, 239, 0.35) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--border-muted);
+  border-radius: 0px !important;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+li strong {
+  color: #808080;
+  font-weight: 600;
+}
+
+/* ========================================================
+   MODULE 4: INTERACTION WIDGETS & NAV CHANNELS
+   ======================================================== */
+
+.left-nav-menu-stack .scroll-top-two-btn,
+.left-nav-menu-stack .scroll-top-three-btn,
+.left-nav-menu-stack .scroll-top-four-btn {
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(180deg,#6D4B8F,#5b3a78) !important;
+  border: none !important;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.24s ease;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  padding: 8px 12px !important;
+}
+
+.left-nav-menu-stack .scroll-top-two-btn:hover,
+.left-nav-menu-stack .scroll-top-three-btn:hover,
+.left-nav-menu-stack .scroll-top-four-btn:hover {
+  transform: translateX(6px);
+  background: #DECEEF !important;
+  color: #6D4B8F !important;
+}
+
+/* Hide these bottom buttons when nav is collapsed */
+.left-nav-menu-stack.collapsed .scroll-top-two-btn,
+.left-nav-menu-stack.collapsed .scroll-top-three-btn,
+.left-nav-menu-stack.collapsed .scroll-top-four-btn {
+  display: none !important;
+}
+
+.header-grid-layout {
+  display: flex;
+  width: 100vw;
+  height: 82px;
+  background-color: var(--bg-card);
+  margin-top: 0px;
+  margin-bottom: 40px;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+main {
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-main);
+  width: 100%;
+  scroll-snap-align: start;
+}
+
+.brand-left-container {
+  display: flex;
+  width: auto;
+  height: auto;
+}
+
+.aligned-header-logo {
+  display: flex;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.partners-outer-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.body-partners-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 550px;
+}
+
+.partners-section-title {
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 700;
+  width: 100%;
+  text-align: left;
+}
+
+.header-partners-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.partners-rectangle-card {
+  background: var(--bg-main) !important;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 145px;
+  min-width: 145px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.partners-rectangle-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.partners-rectangle-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(222, 206, 239, 0.4) !important;
+  box-shadow: 0 6px 20px rgba(222, 206, 239, 0.15) !important;
+}
+
+.partners-rectangle-card:active {
+  transform: translateY(-1px);
+}
+
+/* ========================================================
+   MODULE 5: CARDS & ACTION BUTTONS
+   ======================================================== */
+
+.image-card-block {
+  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.header-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border-left: 5px solid var(--border-muted);
+}
+
+.hc-nowrap {
+  padding: 0;
+  border-radius: 12px;
+  flex-wrap: nowrap;
+}
+
+.hc-between {
+  padding: 20px 24px;
+  border-radius: 12px;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.hc-around {
+  padding: 20px 24px;
+  border-radius: 12px;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.header-card.hc-nowrap img {
+  width: 100%;
+  max-width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.header-card.hc-between img,
+.header-card.hc-around img {
+  flex: 1;
+  min-width: 160px;
+  max-width: 275px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.section-title-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.st-11 {
+  padding: 14px 18px;
+  border-radius: 8px;
+  border-left: 5px solid var(--border-muted);
+  margin-top: 14px;
+  margin-bottom: 16px;
+}
+
+.st-12 {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--border-muted);
+  margin-bottom: 14px;
+}
+
+.st-13 {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border-left: 3px solid var(--border-muted);
+  margin-bottom: 12px;
+}
+
+.section-title-card h1,
+.section-title-card h2,
+.section-title-card h3 {
+  font-weight: 700;
+  color: #808080;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+ul {
+  list-style-type: none;
+  width: 100%;
+}
+
+.pipeline-toggle-btn {
+  background: transparent !important;
+  color: #DECEEF !important;
+  border: 1px solid transparent !important;
+  padding: 10px 14px !important;
+  height: auto !important;
+  min-height: 36px !important;
+  border-radius: 0px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 14px;
+  margin-bottom: 24px;
+  display: inline-flex !important;
+  width: max-content !important;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.pipeline-toggle-btn:hover {
+  color: #f8fafc !important;
+  background: transparent !important;
+  box-shadow: 0 0 14px rgba(135, 206, 250, 0.25) !important;
+  border-radius: 4px !important;
+  transform: translateY(-1px);
+}
+
+.row-collapsed-node {
+  display: none !important;
+}
+
+.section-level-separator {
+  border: 0;
+  height: 1px;
+  background: #DECEEF;
+  opacity: 0.35;
+  margin: 40px auto;
+  width: 17% !important;
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 48px;
+  height: 48px;
+  background-color: #6D4B8F !important;
+  border: none !important;
+  border-radius: 0px !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.scroll-top-btn.btn-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.scroll-top-btn::before {
+  content: "▲";
+  color: #DECEEF !important;
+  font-size: 1.1rem;
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-4px);
+  background-color: #DECEEF !important;
+  box-shadow: 0 6px 20px rgba(222, 206, 239, 0.4);
+}
+
+/* ========================================================
+   MODULE 6: AMETHYST FOOTER & RESPONSIVE BREAKPOINTS
+   ======================================================== */
+
+.footer-bleed-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 64px;
+  position: relative;
+  background-color: #DECEEF !important;
+  border-top: 1px solid var(--border-muted);
+  scroll-snap-align: end;
+  scroll-snap-stop: normal;
+}
+
+.custom-footer {
+  display: flex !important;
+  width: 100%;
+  max-width: 1000px;
+  justify-content: space-between !important;
+  align-items: center;
+  min-height: 70px;
+  background-color: #DECEEF;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+}
+
+.footer-left-amethyst-zone {
+  background-color: #DECEEF;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center;
+  gap: 24px;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.footer-left-amethyst-zone .footer-copyright {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1c2a42;
+  white-space: nowrap;
+}
+
+.footer-left-amethyst-zone .footer-developer-badge .line-1 {
+  font-size: 0.45rem;
+  text-transform: none;
+  letter-spacing: 0.08em;
+  color: #2b3137;
+  margin-bottom: 1px;
+  font-weight: 600;
+}
+
+.footer-left-amethyst-zone .footer-developer-badge .line-2 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1c2a42;
+}
+
+.footer-vertical-separator {
+  width: 2.25px;
+  height: 46px;
+  background-color: #808080;
+  opacity: 0.90;
+  flex-shrink: 0;
+}
+
+.footer-badge-line-combo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-developer-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.footer-right-dark-zone {
+  background-color: #DECEEF !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 0;
+}
+
+.footer-quarter-alignment-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: auto;
+}
+
+.footer-btn-heading,
+.footer-btn-heading p {
+  font-size: 0.55rem;
+  letter-spacing: 0.05em;
+  color: #1c2a42 !important;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.footer-links-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.footer-btn {
+  background: #1c2a42;
+  color: var(--text-main);
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid var(--border-muted);
+  height: 34px;
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.footer-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nav-stack-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin-bottom: 12px;
+  padding: 0 16px;
+}
+
+.nav-item-action-link {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  padding: 14px 12px !important;
+  margin-bottom: 8px !important;
+  color: #DECEEF !important;
+  gap: 16px !important;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-item-action-link:hover {
+  background-color: rgba(222, 206, 239, 0.1) !important;
+  color: #fff !important;
+}
+
+.nav-item-action-link .btn-char-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.nav-item-action-link .btn-text-label {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.left-nav-menu-stack.collapsed .nav-item-action-link .btn-text-label {
+  display: none !important;
+}
+
+.left-nav-menu-stack.collapsed .nav-item-action-link {
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .left-nav-menu-stack { display: none !important; }
+  .nav-toggle-btn { display: none !important; }
+  .footer-quarter-alignment-wrapper { align-items: center; }
+  .splash-card-text { font-size: 1.15rem; }
+}
+
+</style>
+</head>
+<body>
+<div id="dashboard-splash-wrapper" class="splash-overlay" title="Click or scroll down to enter">
+  <div class="splash-content-panel">
+  <div class="splash-event-badge">Innovation Build Fest 2026</div>
+  <div class="splash-ibm-arrow">↓</div>
+  </div>
+</div>
+  <header class="header-grid-layout" id="live-header-anchor">
+  <div class="brand-left-container">
+  <img src="logo.png" class="aligned-header-logo" alt="Velopipe Logo">
+  </div>
+  </header>
+  <main style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; box-sizing: border-box;">
+  <div class="partners-outer-wrapper" style="width: 100%; max-width: 1000px;">
+  <section class="body-partners-section" style="max-width: 1000px; width: 100%;">
+  <div class="partners-section-title">Title Partners</div>
+  <div class="header-partners-container">
+  <a href="https://basf.com" target="_blank" rel="noopener" class="partners-rectangle-card">
+  <img src="basf.webp" alt="BASF Logo">
+  </a>
+  <a href="https://tu.berlin" target="_blank" rel="noopener" class="partners-rectangle-card">
+  <img src="tuberlin.jpg" alt="TU Berlin Logo">
+  </a>
+  <a href="https://ibm.com" target="_blank" rel="noopener" class="partners-rectangle-card">
+  <img src="ibm.jpg" alt="IBM Logo">
+  </a>
+  </div>
+  </section>
+  </div>
+
+  <section class="intro-card blueprint-grid" style="width: 100%; max-width: 1000px; margin: 0 auto 40px auto;">
+  <p class="intro-card-text">
+  Welcome to Velopipe! Innovation process can be potentially disruptive without strategy. The key is timing and to ensure it aligns with business or market trends. Dig right in.
+  </p>
+  </section>
+
+  <!-- 1. ELECTRONICS SECTION -->
+  <section class="section-wrapper w-1000" id="electronics-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-nowrap">
+  <img src="schneider.jpeg" alt="Schneider Banner">
+  </div>
+  <div class="section-title-card st-11">
+  <h1>Innovations in the Electronics Industry '26</h1>
+  </div>
+  </div>
+  <ul class="collapsible-pipeline-list">
+  <li><strong>Automation:</strong> Honeywell, Schneider Electric, Rockwell, etc.</li>
+  <li><strong>Fast Charging / Magsafe:</strong> Apple, Samsung, OnePlus, etc.</li>
+  <li><strong>Storage Transitions:</strong> SanDisk, WD, Seagate, Transcend, etc.</li>
+  <li><strong>Skid Units:</strong> ABB, Schneider, GE, etc.</li>
+  <li><strong>Off-Grid Power:</strong> GE, EDF, Enel, etc.</li>
+  <li><strong>Smart Infra:</strong> Schneider, GE, Havells, Honeywell, etc.</li>
+  <li><strong>Lithium-ion Batteries:</strong> Sunoco, etc.</li>
+  <li><strong>Smart Metering:</strong> Duke, Schneider, Engie, etc.</li>
+  <li><strong>Surface PCs, Tablet Computing:</strong> HP, Microsoft, Dell, etc.</li>
+  <li><strong>Esim:</strong> Apple, Samsung, OnePlus, Oppo, etc.</li>
+  </ul>
+  </section>
+
+  <!-- 2. AUTOMOTIVE SECTION -->
+  <section class="section-wrapper w-1000" id="automotive-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-between">
+  <img src="citroen.png" alt="Citroen Logo">
+  <img src="autoliv.png" alt="Autoliv Logo">
+  <img src="stellantis.jpg" alt="Stellantis Logo">
+  <img src="vinnova.jpg" alt="Vinnova Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-12">
+  <h2>Innovations in the Automotive Industry '26</h2>
+  </div>
+  <ul class="collapsible-pipeline-list">
+  <li><strong>EV Powertrains:</strong> Tesla, BYD, Rimac, etc.</li>
+  <li><strong>Autonomous Driving:</strong> Waymo, Cruise, MobileEye, etc.</li>
+  <li><strong>Solid-State Batteries:</strong> QuantumScape, Toyota, Panasonic, etc.</li>
+  <li><strong>Connected Infotainment:</strong> Android Automotive, Apple CarPlay, etc.</li>
+  </ul>
+  </section>
+
+  <!-- 3. AVIATION SECTION -->
+  <section class="section-wrapper w-1000" id="aviation-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-around">
+  <img src="sukhoi.png" alt="Sukhoi Logo">
+  <img src="airbus.png" alt="Airbus Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-13">
+  <h3>Innovations in the Aviation Industry '26</h3>
+  </div>
+  <ul class="collapsible-pipeline-list">
+  <li><strong>Autoland:</strong> Boeing, Airbus, Embraer, etc.</li>
+  <li><strong>TCAS:</strong> Boeing, Lockheed Martin, Rafale, etc.</li>
+  <li><strong>Tracon Simulator:</strong> Boeing, Airbus, etc.</li>
+  <li><strong>Fly-by-wire throttle:</strong> Airbus, Saab, etc.</li>
+  <li><strong>CAT III equipment:</strong> Embraer, ATR, Boeing, etc.</li>
+  <li><strong>All Electric engines:</strong> Boeing, GE, etc.</li>
+  <li><strong>CFD simulation:</strong> Nasa, Sukhoi, etc.</li>
+  </ul>
+  </section>
+
+  <!-- 4. INDUSTRIAL SOFTWARE & AI INFRASTRUCTURE -->
+  <section class="section-wrapper w-1000" id="infrastructure-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-between">
+  <img src="siemens.png" alt="Siemens Digital Industries Logo">
+  <img src="sap.png" alt="SAP Enterprise Logo">
+  <img src="nvidia.jpg" alt="Nvidia Omniverse Logo">
+  <img src="ansys.jpg" alt="Ansys Simulation Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-12">
+  <h2>Industrial Software & AI Infrastructure '26</h2>
+  </div>
+  <ul class="collapsible-pipeline-list">
+  <li><strong>Digital Twins:</strong> Siemens Omniverse, Dassault Systèmes, Bentley, etc.</li>
+  <li><strong>Predictive Maintenance:</strong> SAP Asset Intelligence, IBM Maximo, SparkCognition, etc.</li>
+  <li><strong>Physics-Informed Neural Networks:</strong> Ansys SimAI, Nvidia Modulus, Altair, etc.</li>
+  <li><strong>PLM Architecture:</strong> PTC Windchill, Siemens Teamcenter, Oracle Agile, etc.</li>
+  </ul>
+  </section>
+
+  <!-- 5. GREEN HYDROGEN & GRID STORAGE -->
+  <section class="section-wrapper w-1000" id="hydrogen-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-around">
+  <img src="plugpower.png" alt="Plug Power Logo">
+  <img src="nel.png" alt="Nel Hydrogen Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-13">
+  <h2>Green Hydrogen & Grid Energy Storage '26</h2>
+  </div>
+  <ul class="collapsible-pipeline-list">
+  <li><strong>PEM Electrolyzers:</strong> Plug Power, Nel Hydrogen, Siemens Energy, etc.</li>
+  <li><strong>Flow Batteries (Vanadium/Iron):</strong> ESS Inc., Invinity Energy Systems, CellCube, etc.</li>
+  <li><strong>Cryogenic Carbon Capture:</strong> Climeworks, Carbon Engineering, Aker, etc.</li>
+  <li><strong>H2 Microgrids:</strong> Ballard Power Systems, Bloom Energy, Cummins, etc.</li>
+  </ul>
+  </section>
+
+  <hr class="section-level-separator">
+  </main>
+
+<!-- full-height nav container -->
+<div class="left-nav-menu-stack" aria-hidden="true">
+  <!-- nav content created by app.js -->
+</div>
+
+<div class="footer-bleed-container" data-snap-point>
+  <footer class="custom-footer">
+  <div class="footer-left-amethyst-zone">
+  <div class="footer-copyright">&copy; 2026 Velopipe, Inc.</div>
+  <div class="footer-badge-line-combo">
+  <a href="https://google.com" target="_blank" rel="noopener" style="text-decoration: none; color: inherit; display: block; border: none; outline: none; background: none; padding: 0; margin: 0;">
+  <div class="footer-developer-badge">
+  <span class="line-1">powered by</span>
+  <span class="line-2">Google for Developers</span>
+  </div>
+  </a>
+  </div>
+  <div class="footer-vertical-separator"></div>
+  </div> 
+  <div class="footer-right-dark-zone">
+  <div class="footer-quarter-alignment-wrapper">
+  <div class="footer-btn-heading">
+  <p>Follow us:</p>
+  </div>
+  <div class="footer-links-cluster">
+  <a href="https://reddit.com" target="_blank" class="footer-btn"><img src="reddit1.jpg" alt="Reddit button"></a>
+  <a href="https://linkedin.com" target="_blank" class="footer-btn"><img src="lnkdin.png" alt="Linked in button"></a>
+  <a href="https://vk.com" target="_blank" class="footer-btn"><img src="vkontakte.png" alt="vk button"></a>
+  <a href="https://x.com" target="_blank" class="footer-btn"><img src="xhandle.avif" alt="X button"></a>
+  <a href="mailto:enterprise1@vishnucr9.org" target="_blank" class="footer-btn"><img src="outlook.png" alt="Outlook button"></a>
+  </div>
+  </div>
+  </div>
+  </footer>
+</div>
+
+  <script src="/__/firebase/10.8.0/firebase-app-compat.js"></script>
+  <script src="/__/firebase/10.8.0/firebase-analytics-compat.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
