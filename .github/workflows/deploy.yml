@@ -3,7 +3,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main # This runs the automation every time you push code to your main branch
+      - main # Change this to master if that is the name of your branch in GitHub Desktop
 
 jobs:
   deploy:
@@ -12,9 +12,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # Uses your original script but maps the file root directory explicitly
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: "." # Forces the container to target your root files natively
