@@ -5,10 +5,6 @@ on:
     branches:
       - main # This runs the automation every time you push code to your main branch
 
-permissions:
-  contents: read
-  id-token: write # Required for keyless authentication on Spark plans
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,19 +12,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      # Uses official Firebase action that maps folder contexts natively
       - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
+        uses: w9jds/firebase-action@master
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: 'github-action-1328673900@://gserviceaccount.com'
-          channelId: live
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
