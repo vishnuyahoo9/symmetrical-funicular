@@ -3,7 +3,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main # Change this to master if that is the name of your branch in GitHub Desktop
+      - main # Change to master if your branch name in GitHub Desktop is master
 
 jobs:
   deploy:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Uses your original, containerized script to process the deployment
+      # Runs your trusted original container tool using your pre-saved secret key string
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
