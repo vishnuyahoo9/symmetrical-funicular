@@ -12,11 +12,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Uses your original script but maps the file root directory explicitly
+      # Uses your original, containerized script to process the deployment
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: "." # Forces the container to target your root files natively
+          PROJECT_PATH: "."
