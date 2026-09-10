@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velopipe Dashboard | Non-Disruptive Innovation Pipelines & Strategy</title>
+<!-- BROWSER TAB ICON & SEARCH ENGINE SNIPPET ICON -->
+<link rel="icon" type="image/png" sizes="32x32" href="logo2.png">
+<link rel="icon" type="image/png" sizes="48x48" href="logo2.png">
+<link rel="shortcut icon" href="logo2.png" type="image/x-icon">
+<!-- APPLE MOBILE HOME SCREEN APPS -->
+<link rel="apple-touch-icon" href="logo2.png">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.pagead2.googlesyndication.com https://googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://googletagmanager.com https://*.adtrafficquality.google https://gstatic.com https://*.gstatic.com https://googleapis.com https://*.googleapis.com;
+  script-src-elem 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.pagead2.googlesyndication.com https://googlesyndication.com https://*.googlesyndication.com https://www.googletagmanager.com https://googletagmanager.com https://*.adtrafficquality.google https://gstatic.com https://*.gstatic.com https://googleapis.com https://*.googleapis.com;
+  style-src 'self' 'unsafe-inline' https://googleapis.com https://*.googleapis.com https://*.googlesyndication.com;
+  font-src 'self' https://gstatic.com https://*.gstatic.com https://googleapis.com https://*.googleapis.com;
+  img-src 'self' data: blob: https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google https://*.ggpht.com https://*.googleusercontent.com;
+  connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://*.google-analytics.com https://googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google;
+  frame-src 'self' https://*.blogspot.com https://googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google;
+">
+
+<meta name="google-adsense-account" content="ca-pub-4062868726473084">
+
+<!-- GOOGLE ADSENSE VERIFICATION TAG -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4062868726473084"
+     crossorigin="anonymous"></script>
+
+<!-- RESTORED: Earlier Version Styling Engine Links -->
+<link rel="preconnect" href="https://googleapis.com">
+<link rel="preconnect" href="https://gstatic.com" crossorigin>
+
+<style> /* Critical early rule: prevent initial "ghost" by keeping nav offscreen while splash shown */ body.splash-in-view .left-nav-menu-stack{ position: fixed !important; top: 100vh !important; /* keep it fully below the viewport */ left: 0 !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; transition: none !important; /* disable any transition on first paint to avoid snap */ z-index: 122600 !important; } </style>
+
+<style>
+
+/* Only hide during splash */
+body.splash-in-view .left-nav-menu-stack {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.splash-in-view .nav-toggle-inline {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+:root {
+ --nav-width: 220px;
+ --nav-collapsed-width: 50px;
+ --nav-bg: #0b0f12;
+ --nav-ink: #cbd5e1;
+ --nav-accent: #6D4B8F;
+ --nav-shadow: 6px 0 18px rgba(0,0,0,0.45);
+ --nav-backdrop: rgba(7,11,14,0.16);
+ 
+ /* RESTORED: Earlier version visual variables */
+ --bg-main: #2b3137;
+ --bg-card: #2b3137;
+ --border-muted: #23324a;   /* Restored dark-blue border */
+ --text-main: #DECEEF;       /* Restored light amethyst text color */
+ --text-muted: #DECEEF;
+ --level-accent: #f8fafc;
+ 
+ --splash-bg: #111827;
+ --nav-dark: #0b0f12;
+ --toggle-bg: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+}
+
+body.nav-visible:not(.splash-in-view),
+body.nav-collapsed:not(.splash-in-view),
+body.nav-visible,
+body.nav-collapsed {
+  padding-left: 0px !important;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* NOTE: Removed global scroll-snap-type to avoid forcing the whole page into snap behavior.
+   We'll enable snapping dynamically only while the splash is in view via a small script. */
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: auto;
+  scroll-snap-type: y proximity !important;
+  scroll-behavior: auto !important;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: block;
+  overflow: visible;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  transition: padding-left 0.28s ease;
+  transition: padding-left 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.splash-overlay {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--splash-bg);
+  z-index: 10;
+  cursor: pointer;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* Keep splash snap alignment; the container snap-type will be enabled only while splash visible */
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  will-change: opacity, transform;
+}
+
+.splash-content-panel {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  text-align: center !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100vh !important;
+  padding-left: 0 !important;
+}
+
+.splash-content-panel *, .splash-direct-intro-container, .splash-card-text {
+  text-align: center !important;
+}
+
+.splash-event-badge {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #DECEEF;
+  text-align: center !important;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.splash-ibm-arrow {
+  position: absolute !important;
+  bottom: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  font-size: 3.5rem !important;
+  font-weight: 900 !important;
+  color: #DECEEF !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  line-height: 1 !important;
+  animation: bounceArrow 2s ease-in-out infinite !important;
+  text-shadow: 0 0 14px rgba(222, 206, 239, 0.65), 0 0 4px rgba(255, 255, 255, 0.85) !important;
+  cursor: pointer;
+  z-index: 11;
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.75; }
+  50% { transform: translateX(-50%) translateY(12px); opacity: 1; }
+}
+
+.left-nav-menu-stack { 
+ position: fixed !important; 
+ inset: 0 auto 0 0 !important; 
+ height: 100vh !important; 
+ width: var(--nav-width) !important; 
+ padding: 56px 14px 20px 14px !important; 
+ display: flex !important; 
+ flex-direction: column !important; 
+ gap: 12px !important; 
+ background-color: var(--nav-bg) !important; 
+ z-index: 122600 !important; 
+ box-shadow: var(--nav-shadow) !important; 
+ border-right: 1px solid rgba(255,255,255,0.03) !important; 
+ overflow-y: auto !important; 
+ overflow-x: hidden !important;
+ transform: translateY(0) !important;
+ visibility: visible !important;
+ pointer-events: auto !important;
+ transition: width 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+ opacity: 1 !important;
+ }
+
+.left-nav-menu-stack.collapsed { 
+  width: var(--nav-collapsed-width) !important; 
+  padding: 72px 4px 20px 4px !important; 
+  box-shadow: 4px 0 12px rgba(0,0,0,0.35) !important; 
+  overflow-x: hidden !important; 
+}
+
+/* backdrop for focus when nav open */
+.left-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--nav-backdrop);
+  z-index: 1150;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.left-nav-backdrop.visible { 
+  pointer-events: auto; 
+  opacity: 1; 
+}
+
+.left-nav-backdrop { z-index: 122500 !important; }
+.left-nav-menu-stack { z-index: 122600 !important; }
+
+/* FIXED: Re-enforce visibility rules for action item buttons inside the rail layout */
+.left-nav-menu-stack .nav-item-action-link {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  align-items: center !important;
+  width: 100% !important;
+  color: #DECEEF !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+/* subtle hover & active */
+.left-nav-menu-stack .nav-item-action-link:hover {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: #fff;
+  transform: translateX(4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* ensure SVG icons size & color inherit */
+.left-nav-menu-stack .btn-char-icon { 
+align-items:center; 
+justify-content:center; 
+line-height:1;
+color: #DECEEF !important; 
+}
+
+.left-nav-menu-stack.collapsed .btn-char-icon { 
+color: #DECEEF !important; 
+}
+
+.left-nav-menu-stack .btn-char-icon svg { 
+width: 18px; 
+height: 18px; 
+display: inline-block; 
+vertical-align: middle; 
+fill: currentColor; 
+stroke: currentColor; 
+pointer-events: none; 
+}
+
+.left-nav-menu-stack .btn-char-icon { 
+display:inline-flex; 
+align-items:center; 
+justify-content:center; 
+line-height:1; 
+}
+
+.left-nav-menu-stack .btn-char-icon svg { 
+width:18px; 
+height:18px; 
+display:inline-block; 
+vertical-align:middle; 
+fill:currentColor; 
+stroke:currentColor; 
+pointer-events:none; 
+}
+
+/* compact icon wrapper */
+.left-nav-menu-stack .nav-icon { 
+  width: 20px; 
+  height: 20px; 
+  display: inline-flex; 
+  align-items:center; 
+  justify-content:center; 
+  color: var(--nav-accent); 
+}
+
+.left-nav-menu-stack button .btn-text-label {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+  margin-left: 8px;
+}
+
+.left-nav-menu-stack.collapsed button .btn-text-label {
+  display: none !important;
+}
+
+/* hide only the label part when nav is collapsed (we rely on .btn-text-label) */
+.left-nav-menu-stack.collapsed .nav-item-action-link .btn-text-label {
+  display: none !important;
+}
+
+/* ensure visible modifier */
+.nav-item-action-link.btn-visible { 
+  opacity: 1; 
+  visibility: visible; 
+  pointer-events: auto; 
+}
+
+.left-nav-menu-stack.collapsed button {
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+/* ========================================================
+   RIFLED RAIL ANCHORING & UNIFIED GREY INTERACTION LAYERS
+   ======================================================== */
+
+/* Base structural layout parameters for nav items */
+.nav-toggle-inline,
+.left-nav-menu-stack .scroll-top-two-btn,
+.left-nav-menu-stack .scroll-top-three-btn,
+.left-nav-menu-stack .scroll-top-four-btn,
+.left-nav-menu-stack .nav-item-action-link {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 10px 14px !important; 
+  border-radius: 8px !important;
+  background: transparent !important;
+  border: none !important;
+  transform: none !important;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out !important;
+}
+
+/* Force cursor pointer hand tool across all interactive areas */
+.nav-toggle-inline,
+.left-nav-menu-stack button,
+.nav-item-action-link,
+.scroll-top-two-btn,
+.scroll-top-three-btn,
+.scroll-top-four-btn {
+  cursor: pointer !important; /* Forces hand tool on everything */
+}
+
+/* Compact grid square structure when the sidebar rail is collapsed */
+.left-nav-menu-stack.collapsed .nav-toggle-inline,
+.left-nav-menu-stack.collapsed .nav-item-action-link {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 auto 8px auto !important;
+  justify-content: center !important;
+}
+
+/* Compact grid square structure when the sidebar rail is collapsed */
+.left-nav-menu-stack.collapsed .nav-toggle-inline,
+.left-nav-menu-stack.collapsed .nav-item-action-link {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 auto 8px auto !important;
+  justify-content: center !important;
+}
+
+/* show compact icon-only buttons when collapsed (icon remains visible) */
+.left-nav-menu-stack.collapsed .nav-item-action-link { 
+padding: 0 6px !important; 
+}
+
+/* small nudge so toggle remains inside the collapsed nav */
+.left-nav-menu-stack.collapsed .nav-toggle-inline { 
+right: 8px !important; 
+top: 8px !important; 
+}
+
+/* Lock vector dimensions inside the uniform buttons */
+.nav-toggle-inline svg,
+.left-nav-menu-stack .nav-item-action-link svg {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ========================================================
+   MODULE 3: RESTORED ORIGINAL CANVAS & CARD STYLES
+   ======================================================== */
+
+.intro-card {
+  padding: 20px 24px;
+  width: 100%;
+}
+
+.intro-card-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+.section-wrapper {
+  width: calc(100% - 48px);
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.w-950 { max-width: 950px; }
+.w-1000 { max-width: 1000px; }
+.w-880 { max-width: 880px; }
+
+.intro-card,
+.section-wrapper ul li {
+  background-color: var(--bg-main) !important;
+  background-image: radial-gradient(rgba(222, 206, 239, 0.10) 2px, transparent 2px) !important;
+  background-size: 32px 32px !important;
+  background-position: center center !important;
+  border: 1px solid var(--border-muted) !important;
+  box-shadow: none !important;
+  position: relative;
+  transition: border-color 0.2s ease, background-image 0.2s ease, transform 0.2s ease;
+}
+
+li {
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--text-main);
+  gap: 8px;
+}
+
+.w-950 li { padding: 14px 18px; font-size: 1.05rem; }
+.w-1000 li { padding: 12px 16px; font-size: 1rem; }
+.w-880 li { padding: 12px 16px; font-size: 1rem; }
+
+.section-wrapper ul li:hover {
+  transform: translateY(-2px);
+  background-color: var(--bg-main) !important;
+  background-image: radial-gradient(rgba(222, 206, 239, 0.20) 2px, transparent 2px) !important;
+  border-color: rgba(222, 206, 239, 0.35) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--border-muted);
+  border-radius: 0px !important;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+li strong {
+  color: #808080;
+  font-weight: 600;
+}
+
+/* ========================================================
+   MODULE 4: INTERACTION WIDGETS & NAV CHANNELS
+   ======================================================== */
+
+/* compact icon-only look for integrated buttons when collapsed */
+.left-nav-menu-stack.collapsed .scroll-top-two-btn,
+.left-nav-menu-stack.collapsed .scroll-top-three-btn,
+.left-nav-menu-stack.collapsed .scroll-top-four-btn {
+  display: inline-flex !important;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+}
+
+/* hide only the text label inside buttons when collapsed (icons remain) */
+.left-nav-menu-stack.collapsed .nav-item-action-link .btn-text-label {
+  display: none !important;
+}
+
+.header-grid-layout {
+  display: flex;
+  width: 100vw;
+  height: 82px;
+  background-color: var(--bg-card);
+  margin-top: 0px;
+  margin-bottom: 40px;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+main {
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-main);
+  width: 100%;
+  scroll-snap-align: start !important;
+}
+
+.brand-left-container {
+  display: flex;
+  width: auto;
+  height: auto;
+}
+
+.aligned-header-logo {
+  display: flex;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.partners-outer-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.body-partners-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 550px;
+}
+
+.partners-section-title {
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 700;
+  width: 100%;
+  text-align: left;
+}
+
+.header-partners-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.partners-rectangle-card {
+  background: var(--bg-main) !important;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 145px;
+  min-width: 145px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.partners-rectangle-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.partners-rectangle-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(222, 206, 239, 0.4) !important;
+  box-shadow: 0 6px 20px rgba(222, 206, 239, 0.15) !important;
+}
+
+.partners-rectangle-card:active {
+  transform: translateY(-1px);
+}
+
+/* ========================================================
+   MODULE 5: CARDS & ACTION BUTTONS
+   ======================================================== */
+
+.image-card-block {
+  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.header-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border-left: 5px solid var(--border-muted);
+}
+
+.hc-nowrap {
+  padding: 0;
+  border-radius: 12px;
+  flex-wrap: nowrap;
+}
+
+.hc-between {
+  padding: 20px 24px;
+  border-radius: 12px;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.hc-around {
+  padding: 20px 24px;
+  border-radius: 12px;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.header-card.hc-nowrap img {
+  width: 100%;
+  max-width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.header-card.hc-between img,
+.header-card.hc-around img {
+  flex: 1;
+  min-width: 160px;
+  max-width: 275px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.section-title-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.st-11 {
+  padding: 14px 18px;
+  border-radius: 8px;
+  border-left: 5px solid var(--border-muted);
+  margin-top: 14px;
+  margin-bottom: 16px;
+}
+
+.st-12 {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--border-muted);
+  margin-bottom: 14px;
+}
+
+.st-13 {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border-left: 3px solid var(--border-muted);
+  margin-bottom: 12px;
+}
+
+.section-title-card h1,
+.section-title-card h2,
+.section-title-card h3 {
+  font-weight: 700;
+  color: #808080;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+ul {
+  list-style-type: none;
+  width: 100%;
+}
+
+.pipeline-toggle-btn {
+  background: transparent !important;
+  color: #DECEEF !important;
+  border: 1px solid transparent !important;
+  padding: 10px 14px !important;
+  height: auto !important;
+  min-height: 36px !important;
+  border-radius: 0px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 14px;
+  margin-bottom: 24px;
+  display: inline-flex !important;
+  width: max-content !important;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.pipeline-toggle-btn:hover {
+  color: #f8fafc !important;
+  background: transparent !important;
+  box-shadow: 0 0 14px rgba(135, 206, 250, 0.25) !important;
+  border-radius: 4px !important;
+  transform: translateY(-1px);
+}
+
+.row-collapsed-node {
+  display: none !important;
+}
+
+.scroll-top-btn {
+ position: fixed;
+ bottom: 32px;
+ right: 32px;
+ width: 48px;
+ height: 48px;
+ background-color: #6D4B8F !important;
+ background: var(--nav-accent, #6D4B8F) !important; /* keep base color */
+ color: var(--text-main, #EAF7FB) !important;
+ border: none !important;
+ border-radius: 4px !important;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+ z-index: 1300 !important;
+ transition: transform 160ms ease, box-shadow 160ms ease !important;
+ opacity: 0 !important;
+ visibility: hidden !important;
+ pointer-events: none !important;
+ filter: none !important;
+}
+
+.scroll-top-btn.btn-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  background: var(--nav-accent, #6D4B8F) !important; /* keep base color */
+  transition: transform 160ms ease, box-shadow 160ms ease !important;
+  filter: none !important;
+}
+
+.scroll-top-btn::before {
+  content: "▲";
+  color: var(--text-main, #DECEEF) !important;
+  font-size: 1.1rem;
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-4px);
+  background: var(--nav-accent, #6D4B8F) !important; /* same as base */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;   /* match baseline shadow */
+  color: var(--text-main, #EAF7FB) !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+/* Neutralize hover/active/focus visual changes */
+.scroll-top-btn:focus,
+.scroll-top-btn:active {
+  transform: translateY(-4px) !important;
+  background: var(--nav-accent, #5DA9C7) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;   /* match baseline shadow */
+  color: var(--text-main, #EAF7FB) !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+/* Keep visible focus for keyboard users, but without hover animation */
+.scroll-top-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(93,169,199,0.12), 0 4px 16px rgba(0,0,0,0.3) !important;
+  outline: none;
+}
+
+/* ========================================================
+ MODULE 6: FIXED FOOTER (SAFE GRID)
+ ======================================================== */
+.footer-bleed-container {
+ display: flex;
+ justify-content: center;
+ width: 100%;
+ margin-top: 64px;
+ position: relative;
+ background-color: #DECEEF !important;
+ border-top: 1px solid var(--border-muted);
+ /* Removed scroll-snap properties — footer is multi-layered and must not snap */
+}
+
+ /* FIXED: Moves the entire footer grid cleanly to the right of the 50px collapsed sidebar footprint */
+.custom-footer {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  align-items: center;
+  width: calc(100% - 50px) !important;
+  max-width: 100% !important;
+  margin-left: 50px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box;
+  position: relative !important; /* <-- required for absolute separator */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+/* Isolated Safe Catch for Global Scroll Snapping */
+.footer-snap-anchor {
+  display: block !important;
+  width: 100% !important;
+  height: 1px !important;
+  margin-top: -1px !important; /* Pulls it safely within layout bounds */
+  visibility: hidden !important;
+  pointer-events: none !important;
+  scroll-snap-align: end !important;
+}
+
+.custom-footer * {
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
+}
+
+/* LOCKS THE VIEWPORT AT THE GENUINE MAIN BODY BASELINE */
+main {
+  scroll-snap-align: end !important;
+}
+
+/* Place vertical separator at ~45% of viewport width from left */
+.footer-vertical-separator {
+  position: absolute;
+  left: 45vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.25px;
+  height: 46px;
+  background-color: #808080;
+  opacity: 0.90;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.footer-left-amethyst-zone {
+ grid-column: span 3 !important; /* Spans across the first 3 quarters */
+ display: flex !important;
+ align-items: center !important;
+ justify-content: flex-start !important;
+ gap: 16px;
+ margin-right: auto; /* push the left zone to the left side of the footer container */
+}
+
+.footer-developer-badge { 
+align-items: flex-start !important; 
+text-align: left !important; 
+}
+
+.footer-left-amethyst-zone .footer-copyright {
+  font-size: 1.10rem;
+  font-weight: 600;
+  color: #1c2a42;
+  white-space: nowrap;
+}
+
+.footer-left-amethyst-zone .footer-developer-badge .line-1 {
+  font-size: 0.60rem;
+  text-transform: none;
+  letter-spacing: 0.08em;
+  margin-bottom: 1px;
+}
+
+.footer-left-amethyst-zone .footer-developer-badge .line-2 {
+  font-size: 1rem;
+}
+
+/* Target your exact badge structure using your #1c2a42 navy text color and 600 weight */
+.footer-left-amethyst-zone .footer-developer-badge .line-1, 
+.footer-left-amethyst-zone .footer-developer-badge .line-2 {
+ color: #1c2a42 !important; 
+ font-weight: 600 !important; 
+ background: transparent !important;
+ transition: text-shadow 0.2s ease !important;
+}
+
+.footer-badge-line-combo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-developer-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  background: none;
+  border: none;
+  justify-content: center;
+  text-align: right;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.footer-right-dark-zone {
+ grid-column: 4 / 5 !important; /* Sits exactly inside the 4th box (the 3rd quarter mark boundary) */
+ background-color: transparent !important; /* Inherits main color cleanly */
+ display: flex;
+ align-items: center;
+ justify-content: flex-start; /* Aligns left at the beginning of the final quarter */
+ padding: 16px 0;
+}
+
+.footer-quarter-alignment-wrapper {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ gap: 6px;
+ width: auto;
+}
+
+.footer-btn-heading,
+.footer-btn-heading p {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #1c2a42 !important;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.footer-links-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.footer-btn {
+  background: #1c2a42;
+  color: var(--text-main);
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid var(--border-muted);
+  height: 34px;
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.footer-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nav-stack-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin-bottom: 12px;
+  padding: 0 16px;
+}
+
+.nav-item-action-link {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  padding: 14px 12px !important;
+  margin-bottom: 8px !important;
+  color: #DECEEF !important;
+  gap: 16px !important;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-item-action-link:hover {
+  background-color: rgba(222, 206, 239, 0.1) !important;
+  color: #fff !important;
+}
+
+.nav-item-action-link .btn-char-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.nav-item-action-link .btn-text-label {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+@media screen and (max-width: 1200px) {
+ .left-nav-menu-stack { 
+   display: flex !important; /* Prevents menu from vanishing entirely */
+   width: var(--nav-collapsed-width) !important; 
+   padding: 72px 4px 20px 4px !important;
+ }
+ .nav-toggle-inline { 
+   display: flex !important; 
+   right: 8px !important; 
+   top: 8px !important; 
+ }
+}
+
+/* ==========================================================================
+   PURE BROWSER ANCHOR SNAP TERMINATION RESET
+   ========================================================================== */
+
+/* 1. Permanently protect your data cards from full-page footer jumps */
+main, section, .section-wrapper, footer, .footer-bleed-container, .custom-footer {
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
+}
+
+/* 2. Lock the splash container and header elements to catch the quick slide up */
+#dashboard-splash-wrapper {
+  scroll-snap-align: start !important;
+  scroll-snap-stop: always !important;
+}
+
+#live-header-anchor, header, .header-grid-layout {
+  scroll-snap-align: start !important;
+  scroll-snap-stop: always !important;
+}
+
+/* 3. THE ABSOLUTE RECOVERY FIX: Make the Scroll Top Button completely 
+   bulletproof by shifting its presentation over to a native hardware layer */
+.scroll-top-btn {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 999999 !important;
+}
+
+/* =========================================================================
+   VELOPIPE FIXED-TO-ABSOLUTE INSTANT OVERRIDE
+   ========================================================================= */
+
+/* Force the nav container to anchor cleanly at the bottom edge of the splash screen */
+html body .left-nav-menu-stack.is-in-splash-view,
+html body.splash-in-view .left-nav-menu-stack {
+  position: absolute !important;
+  top: 100vh !important; /* Locks layout context directly below the full-height splash view */
+  left: 0 !important;
+  transform: translateY(-100%) !important; /* Pulls container box completely below viewport boundary */
+  display: flex !important;
+  visibility: hidden !important; /* Hides visibility instantly during splash wrapper view state */
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -99999 !important; /* Forces it behind all document nodes to stop clipping */
+}
+
+/* Baseline fixed tracking parameters when reading through main content blocks */
+html body .left-nav-menu-stack {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+}
+
+/* Responsive collapse safety indicators */
+html body .left-nav-menu-stack.collapsed .btn-char-icon,
+html body .left-nav-menu-stack.collapsed .nav-item-action-link svg,
+html body .left-nav-menu-stack.collapsed .btn-char-icon svg { 
+  display: inline-block !important; 
+  visibility: visible !important; 
+  opacity: 1 !important; 
+}
+html body .left-nav-menu-stack.collapsed .btn-text-label { 
+  display: none !important; 
+}
+
+<script>
+/* ========================================================
+   DOM INJECTION MECHANISM: BYPASSES SERVER CSP RULES
+   ======================================================== */
+(function() {
+  document.addEventListener("DOMContentLoaded", function() {
+    // Find all partner link tags on the page
+    const partnerLinks = document.querySelectorAll('.partners-logos a.partners-logo-link');
+    
+    partnerLinks.forEach(function(link) {
+      // Check to ensure we haven't already appended the icon
+      if (!link.querySelector('.csp-safe-link-icon')) {
+        // Create a temporary container to hold the raw SVG nodes safely
+        const svgWrapper = document.createElement('div');
+        
+        // Exact box-with-arrow SVG layout requested, utilizing light blue stroke parameters
+        svgWrapper.innerHTML = `
+          <svg class="csp-safe-link-icon" xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="%23add8e6" stroke-width="3">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="#add8e6"></path>
+            <polyline points="15 3 21 3 21 9" stroke="#add8e6"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3" stroke="#add8e6"></line>
+          </svg>
+        `;
+        
+        // Append the native SVG element directly into the live HTML link layout
+        link.appendChild(svgWrapper.firstElementChild);
+      }
+    });
+  });
+})();
+</script>
+
+</style>
+
+<style>
+
+/* ========================================================
+   NAVY DEV BADGE STYLE (MATCHES COPYRIGHT COLOR & WEIGHT)
+   ======================================================== */
+
+/* Reset main link wrapper to behave strictly as plain text links */
+.footer-dev-link {
+ background: transparent !important;
+ border: none !important;
+ padding: 0 !important;
+ margin: 0 !important;
+ box-shadow: none !important;
+ text-decoration: none !important;
+ display: inline !important;
+ cursor: pointer !important;
+}
+
+/* Apply the requested intense #1c2a42 shadow text aura cleanly on hover action */
+.footer-dev-link:after, 
+.footer-dev-link:hover .line-1, 
+.footer-dev-link:hover .line-2, 
+.footer-privacy-link:after,
+.footer-terms-link:after,
+.footer-privacy-link:hover, 
+.footer-terms-link:hover {
+ text-shadow: 0 0 12px rgba(28, 42, 66, 0.95), 0 0 4px rgba(28, 42, 66, 0.5) !important;
+}
+
+.footer-dev-link .footer-developer-badge {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ padding: 0;
+}
+
+/* Footer layout utilities */
+.footer-links-cluster a.footer-icon-link {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 40px;
+ height: 40px;
+ background: transparent;
+ border-radius: 6px;
+ transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+ text-decoration: none;
+ border: 1px solid transparent;
+}
+
+.footer-links-cluster a.footer-icon-link img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+ border-radius: 4px;
+}
+
+.footer-links-cluster a.footer-icon-link:hover {
+ transform: translateY(-3px);
+ box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+ border-color: rgba(0,102,204,0.12);
+ background: rgba(0,102,204,0.04);
+}
+
+</style>
+
+</head>
+
+<body class="splash-in-view">
+
+<!-- Paste this code block anywhere directly inside your <body> tag once -->
+<svg width="0" height="0" style="position: absolute; position: absolute; pointer-events: none;">
+  <defs>
+   <linearGradient id="meta-ai-gradient-profile" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#25D366" />   <!-- Lime Neon Green -->
+      <stop offset="50%" stop-color="#0084FF" />  <!-- Bright Messenger Blue -->
+      <stop offset="100%" stop-color="#D300BB" /> <!-- Vivid Violet Orchid -->
+    </linearGradient>
+  </defs>
+</svg>
+
+<div id="dashboard-splash-wrapper" class="splash-overlay" title="Click or scroll down to enter">
+  <div class="splash-content-panel">
+  <div class="splash-event-badge">Innovation Build Fest 2026</div>
+  <div class="splash-ibm-arrow">↓</div>
+  </div>
+</div>
+  <header class="header-grid-layout" id="live-header-anchor">
+  <div class="brand-left-container">
+  <img src="logo.png" class="aligned-header-logo" alt="Velopipe Logo">
+  </div>
+  </header>
+  <main style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; box-sizing: border-box;">
+
+  <div class="partners-outer-wrapper" style="width: 100%; max-width: 1000px;">
+  <section class="body-partners-section" style="max-width: 1000px; width: 100%;">
+  <div class="partners-section-title">Title Partners</div>
+
+  <!-- Reworked: single evenly-scaling container for partner logos (anchors kept, but visuals removed) -->
+  <div class="header-card hc-between partners-logos" aria-hidden="false">
+    <a href="https://basf.com" target="_blank" rel="noopener" class="partners-logo-link" aria-label="BASF">
+      <img src="basf.jpg" alt="BASF Logo">
+    </a>
+
+    <a href="https://ethz.ch/en.html" target="_blank" rel="noopener" class="partners-logo-link" aria-label="ETH">
+      <img src="eth.png" alt="ETH Logo">
+    </a>
+
+    <a href="https://ibm.com" target="_blank" rel="noopener" class="partners-logo-link" aria-label="IBM">
+      <img src="ibm.jpg" alt="IBM Logo">
+    </a>
+  </div>
+
+  </section>
+  </div>
+
+  <section class="intro-card blueprint-grid" style="width: 100%; max-width: 1000px; margin: 0 auto 40px auto;">
+  <p class="intro-card-text">
+  Welcome to Velopipe! Innovation process can be potentially disruptive without strategy. The key is timing and to ensure it aligns with business or market trends. Dig right in.
+  </p>
+  </section>
+
+  <!-- 1. ELECTRONICS SECTION -->
+  <section class="section-wrapper w-1000" id="electronics-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-nowrap">
+  <img src="schneider.jpeg" alt="Schneider Banner">
+  </div>
+  <div class="section-title-card st-11">
+  <h1>Innovations in the Electronics Industry '26</h1>
+  </div>
+
+<p class="section-editorial-summary" style="font-size: 1.05rem; line-height: 1.6; color: #DECEEF; margin: 15px 0 25px 0; opacity: 0.9; padding: 0 4px;">
+  The global electronics infrastructure framework is undergoing a profound paradigm shift driven by automation engineering, decentralized energy architectures, and upgraded hardware storage parameters. As enterprise networks scale, the adoption of edge-computing frameworks and intelligent metering grids has revolutionized manufacturing line efficiencies. This curated intelligence pipeline tracks core structural developments across solid-state integration and localized hardware platforms shaping the next era of industrial connectivity.
+</p>
+
+  </div>
+  <ul class="collapsible-pipeline-list">
+  <li><strong>Automation:</strong> Honeywell, Schneider Electric, Rockwell, etc.</li>
+  <li><strong>Fast Charging / Magsafe:</strong> Apple, Samsung, OnePlus, etc.</li>
+  <li><strong>Storage Transitions:</strong> SanDisk, WD, Seagate, Transcend, etc.</li>
+  <li><strong>Skid Units:</strong> ABB, Schneider, GE, etc.</li>
+  <li><strong>Off-Grid Power:</strong> GE, EDF, Enel, etc.</li>
+  <li><strong>Smart Infra:</strong> Schneider, GE, Havells, Honeywell, etc.</li>
+  <li><strong>Lithium-ion Batteries:</strong> Sunoco, etc.</li>
+  <li><strong>Smart Metering:</strong> Duke, Schneider, Engie, etc.</li>
+  <li><strong>Surface PCs, Tablet Computing:</strong> HP, Microsoft, Dell, etc.</li>
+  <li><strong>Esim:</strong> Apple, Samsung, OnePlus, Oppo, etc.</li>
+  </ul>
+  </section>
+
+  <!-- 2. AUTOMOTIVE SECTION -->
+  <section class="section-wrapper w-1000" id="automotive-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-between">
+  <img src="citroen.png" alt="Citroen Logo">
+  <img src="autoliv.png" alt="Autoliv Logo">
+  <img src="stellantis.jpg" alt="Stellantis Logo">
+  <img src="vinnova.jpg" alt="Vinnova Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-12">
+  <h2>Innovations in the Automotive Industry '26</h2>
+  </div>
+
+<p class="section-editorial-summary" style="font-size: 1.05rem; line-height: 1.6; color: #DECEEF; margin: 15px 0 25px 0; opacity: 0.9; padding: 0 4px;">
+  Modern automotive logistics and manufacturing parameters are increasingly defined by full-stack electrification and localized machine learning intelligence matrices. The current automotive transition focuses heavily on refining the thermodynamic efficiency of battery powertrains, integrating high-capacity solid-state chemistry layouts, and validating level-4 autonomous driving systems. The reference matrices detailed below isolate the pioneering enterprise organizations driving the physical and digital software infrastructure of transportation systems.
+</p>
+
+  <ul class="collapsible-pipeline-list">
+  <li><strong>EV Powertrains:</strong> Tesla, BYD, Rimac, etc.</li>
+  <li><strong>Autonomous Driving:</strong> Waymo, Cruise, MobileEye, etc.</li>
+  <li><strong>Solid-State Batteries:</strong> QuantumScape, Toyota, Panasonic, etc.</li>
+  <li><strong>Connected Infotainment:</strong> Android Automotive, Apple CarPlay, etc.</li>
+  </ul>
+  </section>
+
+  <!-- 3. AVIATION SECTION -->
+  <section class="section-wrapper w-1000" id="aviation-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-around">
+  <img src="sukhoi.png" alt="Sukhoi Logo">
+  <img src="airbus.png" alt="Airbus Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-13">
+  <h3>Innovations in the Aviation Industry '26</h3>
+  </div>
+
+<p class="section-editorial-summary" style="font-size: 1.05rem; line-height: 1.6; color: #DECEEF; margin: 15px 0 25px 0; opacity: 0.9; padding: 0 4px;">
+  Aerospace engineering frameworks in 2026 demand unprecedented compliance safety thresholds alongside aggressive greenhouse gas mitigation targets. The integration of high-fidelity computational fluid dynamics (CFD) simulation modeling, precision fly-by-wire mechanics, and all-electric propulsion concepts represent the frontline of modern aviation strategy. This tracking index consolidates pioneering airframe safety assets, tracking automated navigation breakthroughs, and enterprise simulation pipelines.
+</p>
+
+  <ul class="collapsible-pipeline-list">
+  <li><strong>Autoland:</strong> Boeing, Airbus, Embraer, etc.</li>
+  <li><strong>TCAS:</strong> Boeing, Lockheed Martin, Rafale, etc.</li>
+   <li><strong>CFD simulation:</strong> <a href="https://www.nasa.gov/aeronautics/research-model-increases-accuracy/" target="_blank" style="color: #87CEEB; text-decoration: underline; display: inline-flex; align-items: center; gap: 4px;">Nasa<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>, Sukhoi, etc.</li>
+  <li><strong>Tracon Simulator:</strong> Boeing, Airbus, etc.</li>
+  <li><strong>Fly-by-wire throttle:</strong> Airbus, Saab, etc.</li>
+  <li><strong>CAT III equipment:</strong> Embraer, ATR, Boeing, etc.</li>
+  <li><strong>All Electric engines:</strong> Boeing, GE, etc.</li>
+ 
+  </ul>
+  </section>
+
+  <!-- 4. INDUSTRIAL SOFTWARE & AI INFRASTRUCTURE -->
+  <section class="section-wrapper w-1000" id="infrastructure-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-between">
+  <img src="siemens.png" alt="Siemens Digital Industries Logo">
+  <img src="sap.png" alt="SAP Enterprise Logo">
+  <img src="nvidia.jpg" alt="Nvidia Omniverse Logo">
+  <img src="ansys.jpg" alt="Ansys Simulation Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-12">
+  <h2>Industrial Software & AI Infrastructure '26</h2>
+  </div>
+
+  <ul class="collapsible-pipeline-list">
+  <li><strong>Digital Twins:</strong> Siemens Omniverse, Dassault Systèmes, Bentley, etc.</li>
+  <li><strong>AI Automation:</strong>Github,<a href="https://www.wix.com/wixel" target="_blank" style="color: #87CEEB; text-decoration: underline; display: inline-flex; align-items: center; gap: 4px;"> Wixel<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>, Manus, etc. </li>
+  <li><strong>ERP Cloud / Migration:</strong>Zoho suite,<a href="https://www.atlassian.com/" target="_blank" style="color: #87CEEB; text-decoration: underline; display: inline-flex; align-items: center; gap: 4px;">Atlassian<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>, etc.</li>
+  <li><strong>Predictive Maintenance:</strong> SAP Asset Intelligence, IBM Maximo, SparkCognition, etc.</li>
+  <li><strong>Physics-Informed Neural Networks:</strong> Ansys SimAI, Nvidia Modulus, Altair, etc.</li>
+  <li><strong>PLM Architecture:</strong> PTC Windchill, Siemens Teamcenter, Oracle Agile, etc.</li>
+  </ul>
+  </section>
+
+  <!-- 5. GREEN HYDROGEN & GRID STORAGE -->
+  <section class="section-wrapper w-1000" id="hydrogen-section" style="width: 100%; max-width: 1000px; margin-bottom: 48px;">
+  <div class="image-card-block">
+  <div class="header-card hc-around">
+  <img src="plugpower.png" alt="Plug Power Logo">
+  <img src="nel.png" alt="Nel Hydrogen Logo">
+  </div>
+  </div>
+  <div class="section-title-card st-13">
+  <h2>Green Hydrogen & Grid Energy Storage '26</h2>
+  </div>
+<p class="section-editorial-summary" style="font-size: 1.05rem; line-height: 1.6; color: #DECEEF; margin: 15px 0 25px 0; opacity: 0.9; padding: 0 4px;">
+  Transitioning localized electrical networks toward zero-carbon baseline operations requires massive scalability developments across green hydrogen and long-duration energy storage. The expansion of proton exchange membrane (PEM) electrolyzers coupled with industrial-scale vanadium flow batteries bridges the structural gap inherent in intermittent renewable capture methods. The indexed ecosystem resources below categorize the critical technological components enabling modern grid stability frameworks.
+</p>
+
+  <ul class="collapsible-pipeline-list">
+  <li><strong>PEM Electrolyzers:</strong> Plug Power, Nel Hydrogen, Siemens Energy, etc.</li>
+  <li><strong>Flow Batteries (Vanadium/Iron):</strong> ESS Inc., Invinity Energy Systems, CellCube, etc.</li>
+  <li><strong>Cryogenic Carbon Capture:</strong> Climeworks, Carbon Engineering, Aker, etc.</li>
+  <li><strong>H2 Microgrids:</strong> Ballard Power Systems, Bloom Energy, Cummins, etc.</li>
+  </ul>
+  </section>
+
+<div class="velopipe-safe-ad-slot" style="width: 100%; max-width: 1000px; margin: 20px auto; text-align: center; min-height: 90px; overflow: hidden;">
+  <!-- AdSense Unit Placement -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4062868726473084"
+       data-ad-slot="YOUR_10_DIGIT_ID"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {}
+  </script>
+</div>
+
+  </main>
+
+<div class="left-nav-menu-stack collapsed" aria-hidden="true">
+  <button class="nav-toggle-inline" type="button" aria-label="Toggle navigation" aria-expanded="false">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+  </button>
+
+  <button class="scroll-top-two-btn nav-item-action-link btn-visible" type="button">
+    <span class="btn-char-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 12l20-7-7 20-3-8-8-3z"/></svg>
+    </span>
+    <span class="btn-text-label">Aviation</span>
+  </button>
+
+  <button class="scroll-top-three-btn nav-item-action-link btn-visible" type="button">
+    <span class="btn-char-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </span>
+    <span class="btn-text-label">Hydrogen</span>
+  </button>
+
+  <button class="scroll-top-four-btn nav-item-action-link btn-visible" type="button">
+    <span class="btn-char-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="14"/><rect x="14" y="7" width="7" height="10"/><path d="M7 21h10"/></svg>
+    </span>
+    <span class="btn-text-label">AI</span>
+  </button>
+
+  <!-- NEW: Clean Horizontal Separator matching the Footer design flow -->
+  <div class="nav-stack-separator" aria-hidden="true"></div>
+
+  <!-- Metrics & Canvas navigation links follow directly below -->
+  <a href="strategytemplate.pdf" target="_blank" rel="noopener noreferrer" class="nav-item-action-link scroll-top-five-btn btn-visible meta-ai-btn-gradient">
+    <!-- Fixed: Restored opening span to balance structural depth -->
+    <span class="btn-char-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Outer Isometric Cube Hexagon -->
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 7v10l10 5V12L2 7zM22 7v10l-10 5V12l10-5z"/>
+      </svg>
+    </span>
+    <span class="btn-text-label">Strategy Map</span>
+  </a>
+
+<a href="modelcanvas.pdf" target="_blank" rel="noopener noreferrer" class="nav-item-action-link scroll-top-six-btn btn-visible">
+  <span class="btn-char-icon" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Fixed: Perfectly centered 18x18 square inside the 24x24 viewBox (spans from 3 to 21) -->
+      <path d="M3 3h18 M3 5h18 M3 7h18 M3 9h18 M3 11h18 M3 13h18 M3 15h18 M3 17h18 M3 19h18 M3 21h18" />
+    </svg>
+  </span>
+  <span class="btn-text-label">Model Canvas</span>
+</a>
+
+</div>
+
+<!-- AUTHORSHIP & TRUST COMPLIANCE PANEL (E-E-A-T) -->
+<section class="section-wrapper w-1000" id="about-curation-panel" style="width: 100%; max-width: 1000px; margin: 40px auto; padding: 24px; background-color: var(--bg-card); border: 1px solid var(--border-muted); border-radius: 12px; box-sizing: border-box;">
+
+    <h4 style="font-size: 1.2rem; font-weight: 700; color: #DECEEF; margin: 0; text-transform: uppercase; letter-spacing: 0.05em;">About the Velopipe Curation Engine</h4>
+  </div>
+  <p style="font-size: 1rem; line-height: 1.6; color: #DECEEF; opacity: 0.85; margin: 0 0 16px 0;">
+    Velopipe operates as an independent, technical documentation repository and industry benchmark hub managed by certified enterprise solutions architects and software engineers. Our specialized focus centers entirely on tracking, consolidating, and structuring non-disruptive engineering breakthroughs across industrial automation, aerospace logistics, and scalable clean-energy transformations.
+  </p>
+  <p style="font-size: 0.95rem; line-height: 1.6; color: #DECEEF; opacity: 0.8; margin: 0;">
+    <strong>Methodology & Sourcing:</strong> Every listing and technology matrix hosted on this dashboard is manually vetted against verified whitepapers, corporate asset releases, academic publications, and official research databases (such as NASA Aeronautics and the global partners indexed above). We do not host speculative analysis; our core architecture functions strictly to catalog active, live-market corporate engineering innovations for global developer reference.
+  </p>
+</section>
+
+<div class="footer-bleed-container">
+  <footer class="custom-footer">
+    <div class="footer-left-amethyst-zone">
+      <!-- 1. Copyright Information -->
+      <div class="footer-copyright">&copy; 2026 Velopipe, Inc.</div>
+      
+      <!-- 2. Developer Badge Block Combo -->
+      <div class="footer-badge-line-combo">
+        <a href="https://google.com" target="_blank" rel="noopener" class="footer-dev-link">
+          <div class="footer-developer-badge">
+            <span class="line-1">powered by</span>
+            <span class="line-2">Google for Developers</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 4. Privacy Policy Link: Exact CSS Clone of the Google Dev Badge line-2 typography -->
+	<div class="footer-privacy-link">
+	     <a href="/privacy.html" target="blank" class="footer-privacy-link" style="
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: none;
+        color: #1c2a42;
+        text-decoration: none;
+	background: transparent !important;
+	transition: text-shadow 0.2s ease !important;
+        margin-left: 17px;
+        " onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='1'">Privacy & Data</a>
+	</div>
+	
+<!-- 5. Terms of use Link: Exact CSS Clone of the Google Dev Badge line-2 typography -->
+<div class="footer-terms-link">
+<a href="/terms.html" target="_blank" class="footer-terms-link" style="
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #1c2a42;
+  text-decoration: none;
+  margin-left: 17px;
+  background: transparent !important;
+  transition: text-shadow 0.2s ease !important;
+  display: inline-block;
+" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='1'">Terms</a>
+</div>
+      <div class="footer-vertical-separator"></div>      
+
+    </div> 
+    
+    <!-- Right Hand Alignment Zone (Your Social Array Grid) -->
+    <div class="footer-right-dark-zone">
+      <div class="footer-quarter-alignment-wrapper">
+        <div class="footer-btn-heading">
+          <p>Follow us:</p>
+        </div>
+        <div class="footer-links-cluster">
+          <a href="https://reddit.com" target="_blank" class="footer-icon-link" rel="noopener"><img src="reddit1.jpg" alt="Reddit button"></a>
+          <a href="https://linkedin.com" target="_blank" class="footer-icon-link" rel="noopener"><img src="lnkdin.png" alt="Linked in button"></a>
+          <a href="https://blogspot.com" target="_blank" class="footer-icon-link" rel="noopener"><img src="blogger.png" alt="Blogger button"></a>
+          <a href="https://vk.com" target="_blank" class="footer-icon-link" rel="noopener"><img src="vkontakte.png" alt="vk button"></a>
+          <a href="https://x.com" target="_blank" class="footer-icon-link" rel="noopener"><img src="xhandle.avif" alt="X button"></a>
+          <a href="mailto:enterprise1@vishnucr9.org" target="_blank" class="footer-icon-link" rel="noopener"><img src="outlook.png" alt="Outlook button"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="footer-snap-anchor"></div>
+
+  <script src="/__/firebase/10.8.0/firebase-app-compat.js"></script>
+  <script src="/__/firebase/10.8.0/firebase-analytics-compat.js"></script>
+  <!-- Updated cache buster for app.js -->
+  <script src="app.js?v=1.0.4"></script> 
+
+  <!--
+    Dynamic snap-toggle (IntersectionObserver version):
+    - Uses IntersectionObserver to accurately detect splash visibility with high sensitivity.
+    - Enables document-level 'y mandatory' snap when any part of the splash is visible (very sensitive).
+    - Disables snapping as soon as splash falls out of view.
+    - Falls back to an rAF scroll-check for older browsers without IntersectionObserver.
+  -->
+  <script>
+  (function () {
+    const splash = document.getElementById('dashboard-splash-wrapper');
+    if (!splash) return;
+
+    const enableSnap = () => {
+      try { document.documentElement.style.scrollSnapType = 'y mandatory'; } catch (e) {}
+    };
+    const disableSnap = () => {
+      try { document.documentElement.style.scrollSnapType = 'none'; } catch (e) {}
+    };
+
+    // IntersectionObserver path (preferred): be very sensitive — enable snap when ANY intersection occurs
+    if (typeof IntersectionObserver !== 'undefined') {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.target !== splash) return;
+          // if any visible intersection area -> enable snap (high sensitivity)
+          if (entry.isIntersecting && entry.intersectionRatio > 0) {
+            enableSnap();
+          } else {
+            disableSnap();
+          }
+        });
+      }, { root: null, threshold: [0, 0.01, 0.05, 0.25, 0.5, 1] });
+      io.observe(splash);
+
+      // initial state: if splash is already visible, enable snap
+      try {
+        const rect = splash.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) enableSnap(); else disableSnap();
+      } catch (e) { disableSnap(); }
+
+    } else {
+      // Fallback rAF-based checker (less accurate but compatible)
+      let rafScheduled = false;
+      const isSplashVisible = () => {
+        try {
+          const rect = splash.getBoundingClientRect();
+          return (rect.bottom > 0 && rect.top < window.innerHeight);
+        } catch (e) { return false; }
+      };
+      const check = () => {
+        if (isSplashVisible()) enableSnap(); else disableSnap();
+        rafScheduled = false;
+      };
+      const onChange = () => { if (!rafScheduled) { rafScheduled = true; window.requestAnimationFrame(check); } };
+      window.addEventListener('scroll', onChange, { passive: true });
+      window.addEventListener('resize', onChange, { passive: true });
+      check();
+    }
+
+  }());
+  </script>
+<!-- ========================================================================== -->
+<style>
+/* 1. Ensure the footer jumping stays permanently fixed */
+main, section, .section-wrapper, footer, .footer-bleed-container, .custom-footer {
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
+}
+
+/* 2. Style optimization to prepare the canvas for instant header/splash transitions */
+#dashboard-splash-wrapper, #live-header-anchor, header, .header-grid-layout {
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
+}
+</style>
+
+<script>
+(function () {
+  const splash = document.getElementById('dashboard-splash-wrapper');
+  const header = document.getElementById('live-header-anchor');
+  if (!splash || !header) return;
+
+  let isScrollingAutomatically = false;
+  let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+  const getHeaderLine = () => {
+    return (window.pageYOffset || document.documentElement.scrollTop) + header.getBoundingClientRect().top - 4;
+  };
+
+  const fastScrollTo = (targetY, duration = 260) => {
+    const startY = window.pageYOffset || document.documentElement.scrollTop;
+    const difference = targetY - startY;
+    const startTime = performance.now();
+    const cubicEaseOut = (t) => --t * t * t + 1;
+
+    const step = (currentTime) => {
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
+      const easedProgress = cubicEaseOut(progress);
+      window.scrollTo(0, startY + difference * easedProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        window.scrollTo(0, targetY);
+        setTimeout(() => { isScrollingAutomatically = false; }, 80);
+      }
+    };
+    requestAnimationFrame(step);
+  };
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const headerLine = getHeaderLine();
+    const scrollingDown = currentScroll > lastScrollTop;
+    
+    // Ignore layout updates or jumps triggered by sidebar buttons
+    const scrollDelta = Math.abs(currentScroll - lastScrollTop);
+    if (scrollDelta > 160) {
+      lastScrollTop = currentScroll;
+      return;
+    }
+
+    if (isScrollingAutomatically) {
+      lastScrollTop = currentScroll;
+      return;
+    }
+
+    // NATIVE SCROLL DOWN: Lock onto header line
+    if (scrollingDown && currentScroll > 15 && currentScroll < headerLine - 25) {
+      isScrollingAutomatically = true;
+      fastScrollTo(headerLine, 260);
+    }
+
+    // NATIVE SCROLL UP: Snap back cleanly onto splash
+    if (!scrollingDown && currentScroll < headerLine && currentScroll > 15) {
+      isScrollingAutomatically = true;
+      fastScrollTo(0, 240);
+    }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }, { passive: true });
+
+  // Non-blocking standard click handler for the scroll-top functionality
+  window.addEventListener('click', (e) => {
+    const isScrollTopBtn = e.target && e.target.closest('.scroll-top-btn');
+    if (isScrollTopBtn) {
+      e.preventDefault();
+      const targetHeaderLine = getHeaderLine();
+      isScrollingAutomatically = true;
+      fastScrollTo(targetHeaderLine, 250); 
+    }
+  }, { passive: true });
+}());
+</script>
+
+<script> // mark the page as ready so nav transitions are enabled only after the first paint document.addEventListener('DOMContentLoaded', () => document.body.classList.add('nav-ready')); </script>
+
+<!-- ========================================================
+     VELOPIPE LOGO GRID LAYOUT STABILIZER ENGINE
+     ======================================================== -->
+
+<style>
+/* 1. UN-CROP LOGOS: Clear parent container padding to stop cutting off the bottom */
+.partners-logos {
+ padding: 0 !important;
+ overflow: visible !important; /* Forces the full image height and native SVGs to show */
+}
+
+/* 2. COMPLETELY ERASE THE ACCIDENTAL EXTRA TEXT ARROW */
+.partners-logos a.partners-logo-link::after {
+ display: none !important;
+ content: "" !important;
+}
+
+/* 3. STABILIZE HOVER PHYSICS: Mimics the dev badge text-shadow aura with zero jumping */
+.partners-logos a.partners-logo-link img,
+.partners-logos a.partners-logo-link .csp-safe-tab-vector,
+.partners-logos a.partners-logo-link * {
+ transform: none !important; /* REMOVES all volatile jumps, scales, and translation shifts */
+ transition: filter 0.2s ease !important;
+}
+
+/* Replicates your dev badge hover style strictly using the logo row's native light blue color */
+.partners-logos a.partners-logo-link:hover img {
+ transform: none !important; /* Locks positions firmly in place */
+ filter: drop-shadow(0 0 10px rgba(173, 216, 230, 0.85)) !important; /* Clean static glow matching the dev badge shadow concept */
+}
+
+/* Kills the link icon animation entirely on hover */
+.partners-logos a.partners-logo-link:hover .csp-safe-tab-vector {
+ transform: none !important;
+}
+
+/* ========================================================
+   UNJAM HAMBURGER SIDEBAR RAIL LAYERS
+   ======================================================== */
+
+/* Wipe out the invisible layer's ability to trap mouse clicks across the viewport */
+.left-nav-backdrop,
+[class*="backdrop"],
+html body .left-nav-backdrop {
+ display: none !important;        /* Completely hides the blocking background card layout */
+ opacity: 0 !important;
+ pointer-events: none !important; /* Forces mouse clicks to slide straight past onto your cards */
+ z-index: -9999 !important;       /* Buries the layer safely beneath the dashboard foundations */
+}
+
+/* Force your content layout main node to remain fully responsive and active */
+main, 
+#main, 
+.section-wrapper, 
+body {
+ pointer-events: auto !important;
+}
+
+/* Ensure the nav menu container itself stays clickable on top */
+.left-nav-menu-stack {
+ z-index: 999999 !important;
+ pointer-events: auto !important;
+}
+
+/* ========================================================
+   WORDPRESS MODE: REMOVE ALL SCROLL SNAP EFFECTS
+   ======================================================== */
+
+/* 1. Kill snap-points globally across all pages and containers */
+html, 
+body, 
+main, 
+section, 
+header, 
+footer,
+#dashboard-splash-wrapper, 
+#live-header-anchor, 
+.header-grid-layout,
+.section-wrapper, 
+.footer-bleed-container, 
+.custom-footer {
+ scroll-snap-type: none !important;
+ scroll-snap-align: none !important;
+ scroll-snap-stop: normal !important;
+}
+
+/* 2. Turn off system scroll container constraints */
+html {
+ scroll-padding-top: 0 !important;
+}
+
+/* Force-hide the AI assistant wrapper and chat toggles while the splash view is active */
+body.splash-in-view #ai-assistant-wrapper,
+body.splash-in-view .chat-widget-toggle,
+body.splash-in-view #chat-button {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+</style>
+
+<style>
+
+/* ========================================================
+   1. TOTAL RECOVERY: SHARP BULLETS & CSS CLIPPING PROTECTIONS
+   ======================================================== */
+style {
+    display: none !important;
+}
+
+body {
+    color: var(--text-main) !important;
+    line-height: 1.5;
+}
+
+/* Force original card border specifications across standard components */
+.intro-card,
+.section-wrapper,
+.section-title-card {
+    border: 1px solid var(--border-muted) !important;
+}
+
+/* Format specific content rows to match previous versions */
+.collapsible-pipeline-list li {
+    background-color: var(--bg-main) !important;
+    border: 1px solid var(--border-muted) !important;
+    color: var(--text-main) !important;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+/* Scope sharp universal square micro-bullets strictly to content cards */
+.collapsible-pipeline-list li::before {
+    content: "" !important;
+    display: inline-block !important;
+    width: 8px !important;
+    height: 8px !important;
+    background-color: var(--border-muted) !important;
+    border-radius: 0px !important;
+    margin-right: 12px !important;
+    flex-shrink: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.collapsible-pipeline-list li strong {
+    color: #808080 !important;
+    font-weight: 600 !important;
+}
+
+/* ========================================================
+   CRISP STANDARD-LINE X SEPARATORS (NO DUPLICATES)
+   ======================================================== */
+html body .header-card.hc-between.partners-logos {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  align-items: center !important; 
+  justify-items: center !important;
+  width: 100% !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  position: relative !important;
+  padding: 0 100px !important; 
+  box-sizing: border-box !important;
+  gap: 0 !important;
+}
+
+/* Hard reset kill-switch to strip hidden structural duplicates on logo containers */
+.partners-logos a.partners-logo-link::before,
+.partners-logos a.partners-logo-link::after,
+.partners-logos div,
+.partners-logos span {
+  display: none !important;
+  content: "" !important;
+  background: none !important;
+}
+
+/* High-precision 1px standard crisp geometric lines matching core blue-grey borders */
+.partners-logos::before,
+.partners-logos::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  width: 14px !important;
+  height: 14px !important;
+  display: block !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+  opacity: 0.65 !important;
+  /* Premium standard line weight (1px absolute) and neutral grey-blue color tint */
+  background: 
+    linear-gradient(45deg, transparent calc(50% - 0.5px), #94a3b8 calc(50% - 0.5px), #94a3b8 calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(-45deg, transparent calc(50% - 0.5px), #94a3b8 calc(50% - 0.5px), #94a3b8 calc(50% + 0.5px), transparent calc(50% + 0.5px)) !important;
+}
+
+.partners-logos::before { left: 33.333% !important; transform: translate(-50%, -50%) !important; }
+.partners-logos::after { left: 66.666% !important; transform: translate(-50%, -50%) !important; }
+
+/* ========================================================
+   UNIFIED HOVER LAYER ENGINE & POINTER PROTECTION
+   ======================================================= */
+
+/* Copy the exact grey overlay hover mechanics globally */
+.nav-toggle-inline:hover,
+.left-nav-menu-stack button:hover,
+.left-nav-menu-stack .nav-item-action-link:hover,
+.left-nav-menu-stack .scroll-top-two-btn:hover,
+.left-nav-menu-stack .scroll-top-three-btn:hover,
+.left-nav-menu-stack .scroll-top-four-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important; 
+  color: #ffffff !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.left-nav-menu-stack .scroll-top-two-btn.scroll-active,
+.left-nav-menu-stack .scroll-top-three-btn.scroll-active,
+.left-nav-menu-stack .scroll-top-four-btn.scroll-active {
+  background-color: rgba(40, 110, 165, 0.85) !important;;
+}
+
+</style>
+
+<style>
+
+
+/* ========================================================
+   2. RE-ANCHOR ALL NAV OPTIONS DIRECTLY TO THE UPPER EDGE
+   ======================================================== */
+.left-nav-menu-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important; /* Moves all items flush to the top edge */
+  align-items: stretch !important;
+  padding: 14px 10px !important;
+  gap: 8px !important; /* Snug, clean layout rhythm */
+}
+
+
+/* ========================================================
+   3. ALIGN COLLAPSED TOGGLE RIGHT & ENSURE CONSTANT VISIBILITY
+   ======================================================== */
+/* Clean, rigid baseline for the toggle button */
+.nav-toggle-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 0 12px auto !important; /* 'margin-left: auto' pushes the button flush to the right edge */
+  border-radius: 8px !important;
+  background: transparent !important;
+  color: #DECEEF !important; /* Premium light theme color */
+  cursor: pointer !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure vector graphic strokes are crisp white/amethyst before hover occurs */
+.nav-toggle-inline svg,
+.nav-toggle-inline svg line,
+.nav-toggle-inline svg rect,
+.nav-toggle-inline svg path {
+  stroke: #DECEEF !important; /* Restores constant baseline visibility */
+  stroke-width: 2.5px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Fix properties when the menu rail switches to a collapsed layout state */
+.left-nav-menu-stack.collapsed .nav-toggle-inline {
+  margin: 0 auto 16px auto !important; /* Centers button symmetrically inside the thin rail */
+}
+
+.nav-toggle-inline:hover svg line,
+.nav-toggle-inline:hover svg rect,
+.nav-toggle-inline:hover svg path {
+  stroke: #ffffff !important;
+}
+
+/* ========================================================
+   FORCE EXPANDED TOGGLE TO THE FAR RIGHT OF THE NAV PANEL
+   ======================================================== */
+.left-nav-menu-stack:not(.collapsed) .nav-toggle-inline {
+  position: relative !important;
+  margin-left: auto !important;  /* Magic rule: pushes the button completely to the right edge */
+  margin-right: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 16px !important; /* Keeps clean space between the toggle and buttons below it */
+  display: inline-flex !important;
+}
+
+/* ========================================================
+   1. COLLAPSED NAV UPPER ANCHORING (PULLS BUTTONS UPWARD)
+   ======================================================== */
+.left-nav-menu-stack.collapsed {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important; /* Forces items flush to the top edge */
+  padding: 6px 0 14px 0 !important; /* Shaves off the excessive top padding */
+  gap: 2px !important; /* Tightens space between consecutive row nodes */
+}
+
+/* Slims down the space under the toggle button to lift links up */
+.left-nav-menu-stack.collapsed .nav-toggle-inline {
+  margin: 0 auto 6px auto !important; 
+}
+
+
+/* ========================================================
+   FINE-TUNED INWARD PARTNER GRID SEPARATORS
+   ======================================================== */
+html body .header-card.hc-between.partners-logos {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr !important;
+  align-items: center !important;
+  justify-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0 40px !important;
+  position: relative !important;
+  overflow: visible !important;
+  gap: 0 !important;
+}
+
+/* Base geometry settings for the crisp 1px standard lines */
+.partners-logos::before,
+.partners-logos::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  width: 14px !important;
+  height: 14px !important;
+  display: block !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  visibility: visible !important;
+  opacity: 0.65 !important;
+  background: 
+  linear-gradient(45deg, transparent calc(50% - 0.5px), #94a3b8 calc(50% - 0.5px), #94a3b8 calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+  linear-gradient(-45deg, transparent calc(50% - 0.5px), #94a3b8 calc(50% - 0.5px), #94a3b8 calc(50% + 0.5px), transparent calc(50% + 0.5px)) !important;
+}
+
+/* Moved 6px INWARD to the right (Originally left: 33.333%) */
+.partners-logos::before {
+  left: calc(33.333% + 18px) !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Moved 6px INWARD to the left (Originally left: 66.666%) */
+.partners-logos::after {
+  left: calc(66.666% - 18px) !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Clear all hidden duplicate line rendering methods completely */
+.partners-logos a.partners-logo-link::before,
+.partners-logos a.partners-logo-link::after,
+.partners-logos div,
+.partners-logos span,
+.partners-logos a.partners-logo-link:not(:last-child)::before,
+.partners-logos a.partners-logo-link:not(:last-child)::after {
+  display: none !important;
+  content: "" !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: none !important;
+}
+
+/* ========================================================
+   FINE-TUNED DEVELOPER BADGE HORIZONTAL OFFSET
+   ======================================================== */
+.footer-left-amethyst-zone .footer-dev-link {
+  display: inline-block !important;
+  margin-left: 9px !important; /* Displaces the badge precisely 9px to the right */
+  position: relative !important;
+}
+
+<style>
+
+/* Strips the thin box borders running around the Read More / Less buttons */
+html body button.pipeline-toggle-btn,
+html body .pipeline-toggle-btn {
+  border: none !important;
+  border-width: 0px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Erases the thin connecting outline between the header asset block and the lines wrapper */
+html body .section-wrapper {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Keep your core cards intact, but cleanly drop any thin bottom/top boundary lines */
+html body .image-card-block {
+  border-bottom: none !important;
+}
+</style>
+
+<style>
+
+/* ========================================================
+   NEW: NAV MENU TOOLS LINK RULES
+   ======================================================== */
+.left-nav-menu-stack a.nav-item-action-link {
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+.left-nav-menu-stack.collapsed .scroll-top-five-btn,
+.left-nav-menu-stack.collapsed .scroll-top-six-btn {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  justify-content: center !important;
+}
+
+.left-nav-menu-stack .scroll-top-five-btn:hover,
+.left-nav-menu-stack .scroll-top-six-btn:hover
+ {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+/* Horizontal Line Separator - Thicker with solid opacity */
+.nav-stack-separator {
+  margin: 18px 16px;
+  border-top: 2px solid rgba(255, 255, 255, 0.18); 
+  display: block !important; 
+}
+
+/* Enhanced visibility configuration when the navigation rail collapses */
+.left-nav-menu-stack.collapsed .nav-stack-separator {
+  margin: 14px auto !important; 
+  width: 24px !important;       
+}
+
+/* Enforce typography match across all dashboard link elements */
+.scroll-top-five-btn .btn-text-label,
+.scroll-top-six-btn .btn-text-label {
+  font-family: inherit !important;
+  font-size: 13px !important;      /* Forces exact match to standard dashboard rail sizes */
+  font-weight: 500 !important;      /* Ensures uniform font thickness */
+  color: rgba(255, 255, 255, 0.7); /* Soft light gray to match inactive menu states */
+  margin-left: 12px !important;     /* Uniform spacing from the icon node */
+}
+
+</style>
+
+</style>
+
+<style>
+
+#ai-assistant-wrapper {
+  position: fixed;
+  top: 128px;
+  right: 0;
+  z-index: 160000;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: flex;
+  align-items: flex-start;
+  pointer-events: auto;
+}
+
+#ai-toggle-trigger {
+  width: 55px;
+  height: 50px;
+  min-width: 40px;
+  min-height: 40px;
+  box-sizing: border-box;
+  background: #0b0f12;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 0;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.56);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  right: 10px;
+  transform: translateX(10px);
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: #ffffff;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease,
+  box-shadow 160ms ease;
+}
+
+#ai-toggle-trigger:hover {
+  background: #11171b;
+  border-color:
+    rgba(255,255,255,0.16);
+  transform:
+    translateX(5px)
+    translateY(-2px);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.62);
+}
+
+#ai-toggle-trigger:focus-visible {
+  background: #11171b;
+  border-color:
+    rgba(255,255,255,0.22);
+  outline: none;
+  transform:
+    translateX(5px)
+    translateY(-2px);
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.08),
+    0 18px 40px rgba(0,0,0,0.62);
+}
+
+#ai-toggle-trigger:active {
+  background: #080b0d;
+  transform:
+    translateX(7px)
+    translateY(0);
+  box-shadow:
+    0 10px 24px rgba(0,0,0,0.58);
+}
+
+#ai-toggle-trigger .ai-toggle-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
+  transition:
+    transform 180ms ease;
+}
+
+#ai-toggle-trigger:hover .ai-toggle-icon {
+  transform: scale(1.06);
+}
+
+#ai-chat-window {
+  position: fixed;
+  top: 16px;
+  right: 88px;
+  width: 380px;
+  height: 520px;
+  background-color: rgba(11,15,18,0.96);
+  border: 1px solid var(--border-muted);
+  color: var(--text-main);
+  border-radius: 14px;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.64);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform-origin: top right;
+  transform: translateY(-6px) scale(0.985);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+  backdrop-filter: blur(6px);
+  z-index: 160010;
+}
+
+#ai-chat-window.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#ai-chat-window .ai-header {
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0)
+    );
+  border-bottom: 1px solid var(--border-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+#ai-chat-window .ai-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#ai-chat-window .ai-close {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 120ms ease, transform 120ms ease;
+}
+
+#ai-chat-window .ai-close:hover {
+  background: rgba(255,255,255,0.04);
+  transform: scale(1.04);
+}
+
+#ai-chat-log {
+  padding: 12px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ai-msg.bot {
+  align-self: flex-start;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+  border: 1px solid rgba(255,255,255,0.02);
+  color: var(--text-main);
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 86%;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.ai-msg.user {
+  align-self: flex-end;
+  background: var(--nav-accent);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 86%;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+#ai-options-tray {
+  padding: 12px;
+  border-top: 1px solid var(--border-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0));
+}
+
+.ai-option-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-main);
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 120ms ease, transform 100ms ease;
+}
+.ai-option-btn:hover {
+  background: rgba(255,255,255,0.035);
+  transform: translateY(-1px);
+}
+
+#ai-input-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border-top: 1px solid var(--border-muted);
+  background: transparent;
+}
+
+#ai-chat-input {
+  flex: 1;
+  background-color: #0b1114;
+  border: 1px solid #23324a;
+  color: var(--text-main);
+  padding: 12px 14px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 13px;
+}
+
+#ai-chat-input::placeholder {
+  color: rgba(222,206,239,0.35);
+}
+
+#ai-send-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  min-width: 76px;
+  box-sizing: border-box;
+  background: #0b0f12;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.56);
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+}
+
+#ai-send-btn:hover {
+  background: #11171b;
+  border-color: rgba(255,255,255,0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.60);
+}
+
+#ai-send-btn:focus-visible {
+  background: #11171b;
+  border-color: rgba(255,255,255,0.22);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.08), 0 18px 40px rgba(0,0,0,0.60);
+}
+
+#ai-send-btn:active {
+  background: #080b0d;
+  transform: translateY(0);
+}
+
+#ai-send-btn svg {
+  width: 14px;
+  height: 14px;
+  color: #ffffff;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
+}
+
+@media (max-width: 820px) {
+
+  #ai-chat-window {
+    width: 320px;
+    height: 480px;
+    right: 16px;
+    top: 12px;
+  }
+
+  #ai-toggle-trigger {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    right: -10px;
+    border-radius: 0;
+  }
+}
+
+</style>
+
+<div id="ai-assistant-wrapper" aria-live="polite">
+<button id="ai-toggle-trigger" type="button" aria-expanded="false" aria-controls="ai-chat-window" title="Velopipe Assistant"
+aria-label="Open Velopipe Assistant">
+<svg class="ai-toggle-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg"
+aria-hidden="true">
+<defs> <linearGradient id="ai-ring-gradient" x1="4" y1="5" x2="20" y2="19 gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#22D3EE"/><stop offset="0.5" stop-color="#3B82F6"/><stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  <circle cx="12" cy="12" r="7.5" stroke="url(#ai-ring-gradient)" stroke-width="2.2"/>
+</svg>
+  </button>
+  <div id="ai-chat-window" role="dialog" aria-modal="false" aria-label="Velopipe Assistant">
+<div class="ai-header">
+  <div class="ai-title" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M3 12h18M12 3v18"/>
+    </svg>
+    <span>Velopipe Assistant</span>
+  </div>
+  <button class="ai-close" type="button" aria-label="Close assistant" title="Close">✕
+  </button>
+</div>
+<div id="ai-chat-log" aria-live="polite" aria-atomic="false"></div>
+<div id="ai-options-tray" role="toolbar" aria-label="Quick actions"></div>
+<div id="ai-input-row">
+  <input id="ai-chat-input" type="text" placeholder="Ask about pipelines, downloads or navigation..."
+    aria-label="Type message"/>
+  <button id="ai-send-btn" type="button" aria-label="Send message">
+    <svg width="14"height="14"viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="22" y1="2" x2="11" y2="13" ></line>
+      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+    </svg>Ask
+  </button>
+</div>
+</div>
+</div>
+
+<script>
+/* Widget behavior (keep existing logic, updated selectors) */
+(function () {
+  const toggle = document.getElementById('ai-toggle-trigger');
+  const win = document.getElementById('ai-chat-window');
+  const closeBtn = win.querySelector('.ai-close');
+  const log = document.getElementById('ai-chat-log');
+  const optionsTray = document.getElementById('ai-options-tray');
+  const input = document.getElementById('ai-chat-input');
+  const sendBtn = document.getElementById('ai-send-btn');
+
+  const NAV_LINKS = [
+    { label: "View Electronics Line Cards", target: "#electronics-section" },
+    { label: "View Automotive Innovations", target: "#automotive-section" },
+    { label: "View Aviation Research", target: "#aviation-section" },
+    { label: "View Industrial Software / AI", target: "#infrastructure-section" },
+    { label: "View Green Hydrogen Data", target: "#hydrogen-section" }
+  ];
+
+  const DOWNLOADS = [
+    { label: "Strategy Map (PDF)", file: "strategymap.pdf" },
+    { label: "Model Canvas (PDF)", file: "modelcanvas.pdf" },
+    { label: "AI Blog (PDF)", file: "hbsai.pdf" }
+  ];
+
+  function addMessage(text, who = 'bot') {
+    const msg = document.createElement('div');
+    msg.className = 'ai-msg ' + (who === 'user' ? 'user' : 'bot');
+    msg.innerHTML = (who === 'user' ? `<strong>You:</strong> ` : `<strong>Guide:</strong> `) + text;
+    log.appendChild(msg);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function openWindow() {
+    win.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    if (!optionsTray.hasChildNodes()) renderMainMenu();
+    input.focus();
+  }
+  function closeWindow() {
+    win.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', () => (win.classList.contains('open') ? closeWindow() : openWindow()));
+  closeBtn.addEventListener('click', closeWindow);
+  win.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWindow(); });
+
+  function renderMainMenu() {
+    optionsTray.innerHTML = '';
+    const items = [
+      { label: 'Jump to Section', action: () => openCategory('sections') },
+      { label: 'Downloads', action: () => openCategory('downloads') },
+      { label: 'External Integrations', action: () => openCategory('redirects') },
+      { label: 'Tailor-made Solutions', action: () => openCategory('solutions') }
+    ];
+    items.forEach(it => {
+      const btn = document.createElement('button');
+      btn.className = 'ai-option-btn';
+      btn.textContent = it.label;
+      btn.onclick = it.action;
+      btn.onkeyup = (e) => { if (e.key === 'Enter') it.action(); };
+      optionsTray.appendChild(btn);
+    });
+  }
+
+  function openCategory(type) {
+    optionsTray.innerHTML = '';
+    addMessage(`<em>Opening ${type}...</em>`, 'bot');
+
+    const back = document.createElement('button');
+    back.className = 'ai-option-btn';
+    back.textContent = '← Back';
+    back.onclick = renderMainMenu;
+    optionsTray.appendChild(back);
+
+    if (type === 'sections') {
+      NAV_LINKS.forEach(item => {
+        const b = document.createElement('button');
+        b.className = 'ai-option-btn';
+        b.textContent = item.label;
+        b.onclick = () => {
+          addMessage(`Scrolling to ${item.label}`, 'bot');
+          const el = document.querySelector(item.target);
+          if (el) {
+            const top = (window.pageYOffset || document.documentElement.scrollTop) + el.getBoundingClientRect().top;
+            try { window.scrollTo({ top: Math.max(0, top - 20), behavior: 'smooth' }); } catch (e) { window.scrollTo(0, Math.max(0, top - 20)); }
+          } else {
+            addMessage('Anchor not found on this page.', 'bot');
+          }
+        };
+        optionsTray.appendChild(b);
+      });
+    } else if (type === 'downloads') {
+      DOWNLOADS.forEach(item => {
+        const b = document.createElement('button');
+        b.className = 'ai-option-btn';
+        b.textContent = item.label;
+        b.onclick = () => {
+          addMessage(`Starting download: ${item.file}`, 'bot');
+          const a = document.createElement('a');
+          a.href = item.file;
+          a.download = item.file;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+        optionsTray.appendChild(b);
+      });
+    } else if (type === 'redirects') {
+      const redirects = [
+        { label: 'OpenAI', url: 'https://openai.com' },
+        { label: 'Manus AI', url: 'https://manus.im' },
+        { label: 'Zoho', url: 'https://zoho.com' }
+      ];
+
+      redirects.forEach(item => {
+        const b = document.createElement('button');
+        b.className = 'ai-option-btn';
+        b.textContent = item.label;
+        b.onclick = () => { addMessage(`Opening ${item.label}`, 'bot'); window.open(item.url, '_blank'); };
+        optionsTray.appendChild(b);
+      });
+    } else if (type === 'insights') {
+      addMessage("For tailor-made solutions email: <a href='mailto:enterprise1@vishnucr9.org' style='color:#87CEEB; text-decoration:underline;'>enterprise1@vishnucr9.org</a>", 'bot');
+      renderMainMenu();
+    }
+  }
+
+  function sendMessage() {
+    const txt = input.value.trim();
+    if (!txt) return;
+
+    addMessage(txt, 'user');
+    input.value = '';
+
+    const lowered = txt.toLowerCase();
+
+    if (
+      lowered.includes('download') ||
+      lowered.includes('resources') ||
+      lowered.includes('tools')
+    ) {
+      addMessage(
+        'Select the Downloads option or type Y to get the latest resources free!',
+        'bot'
+      );
+    } 
+    else if (lowered.includes('y')) {
+      addMessage('Here are your requested download resources:', 'bot');
+      
+      DOWNLOADS.forEach(item => {
+        const b = document.createElement('button');
+        b.className = 'ai-option-btn';
+        b.style.margin = '4px 2px'; 
+        b.textContent = item.label;
+        b.onclick = () => {
+          addMessage(`Starting download: ${item.file}`, 'bot');
+          const a = document.createElement('a');
+          a.href = item.file;
+          a.download = item.file;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+        log.appendChild(b);
+      });
+      
+      log.scrollTop = log.scrollHeight;
+    }
+    else if (
+      lowered.includes('jump') ||
+      lowered.includes('information') ||
+      lowered.includes('innovation') ||
+      lowered.includes('section')
+    ) {
+      addMessage(
+        'Type or pick a section from the menu to navigate.',
+        'bot'
+      );
+    } else {
+      addMessage(
+        'I can help you jump to sections, get downloads, or redirect to external websites. Select a menu item below or rephrase your query to proceed.',
+        'bot'
+      );
+    }
+    input.focus();
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    addMessage('Welcome to the Velopipe Dashboard', 'bot');
+    renderMainMenu();
+  });
+})();
+</script>
+
+</body>
+</html>
