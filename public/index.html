@@ -184,12 +184,16 @@ body {
  inset: 0 auto 0 0 !important; 
  height: 100vh !important; 
  width: var(--nav-width) !important; 
- padding: 56px 14px 20px 14px !important; 
+ padding: 56px 14px 20px 14px !important;
+ padding: 14px 10px !important; 
  display: flex !important; 
- flex-direction: column !important; 
- gap: 12px !important; 
+ flex-direction: column !important;
+ justify-content: flex-start !important; /* Moves all items flush to the top edge */ 
+ align-items: stretch !important;
+ gap: 8px !important; 
  background-color: var(--nav-bg) !important; 
  z-index: 122600 !important; 
+ z-index: 999999 !important;
  box-shadow: var(--nav-shadow) !important; 
  border-right: 1px solid rgba(255,255,255,0.03) !important; 
  overflow-y: auto !important; 
@@ -201,11 +205,17 @@ body {
  opacity: 1 !important;
  }
 
-.left-nav-menu-stack.collapsed { 
+ .left-nav-menu-stack.collapsed { 
   width: var(--nav-collapsed-width) !important; 
   padding: 72px 4px 20px 4px !important; 
   box-shadow: 4px 0 12px rgba(0,0,0,0.35) !important; 
   overflow-x: hidden !important; 
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important; /* Forces items flush to the top edge */
+  padding: 6px 0 14px 0 !important; /* Shaves off the excessive top padding */
+  gap: 2px !important; /* Tightens space between consecutive row nodes */
 }
 
 /* backdrop for focus when nav open */
@@ -213,7 +223,7 @@ body {
   position: fixed;
   inset: 0;
   background: var(--nav-backdrop);
-  z-index: 1150;
+  z-index: 122500 !important;
   pointer-events: none;
   opacity: 0;
   transition: opacity 180ms ease;
@@ -222,9 +232,6 @@ body {
   pointer-events: auto; 
   opacity: 1; 
 }
-
-.left-nav-backdrop { z-index: 122500 !important; }
-.left-nav-menu-stack { z-index: 122600 !important; }
 
 /* FIXED: Re-enforce visibility rules for action item buttons inside the rail layout */
 .left-nav-menu-stack .nav-item-action-link {
@@ -249,13 +256,10 @@ body {
 
 /* ensure SVG icons size & color inherit */
 .left-nav-menu-stack .btn-char-icon { 
+display:inline-flex; 
 align-items:center; 
 justify-content:center; 
 line-height:1;
-color: #DECEEF !important; 
-}
-
-.left-nav-menu-stack.collapsed .btn-char-icon { 
 color: #DECEEF !important; 
 }
 
@@ -267,23 +271,6 @@ vertical-align: middle;
 fill: currentColor; 
 stroke: currentColor; 
 pointer-events: none; 
-}
-
-.left-nav-menu-stack .btn-char-icon { 
-display:inline-flex; 
-align-items:center; 
-justify-content:center; 
-line-height:1; 
-}
-
-.left-nav-menu-stack .btn-char-icon svg { 
-width:18px; 
-height:18px; 
-display:inline-block; 
-vertical-align:middle; 
-fill:currentColor; 
-stroke:currentColor; 
-pointer-events:none; 
 }
 
 /* compact icon wrapper */
@@ -303,11 +290,6 @@ pointer-events:none;
 }
 
 .left-nav-menu-stack.collapsed button .btn-text-label {
-  display: none !important;
-}
-
-/* hide only the label part when nav is collapsed (we rely on .btn-text-label) */
-.left-nav-menu-stack.collapsed .nav-item-action-link .btn-text-label {
   display: none !important;
 }
 
@@ -353,16 +335,6 @@ pointer-events:none;
 .scroll-top-three-btn,
 .scroll-top-four-btn {
   cursor: pointer !important; /* Forces hand tool on everything */
-}
-
-/* Compact grid square structure when the sidebar rail is collapsed */
-.left-nav-menu-stack.collapsed .nav-toggle-inline,
-.left-nav-menu-stack.collapsed .nav-item-action-link {
-  width: 40px !important;
-  height: 40px !important;
-  padding: 0 !important;
-  margin: 0 auto 8px auto !important;
-  justify-content: center !important;
 }
 
 /* Compact grid square structure when the sidebar rail is collapsed */
@@ -758,6 +730,9 @@ ul {
  visibility: hidden !important;
  pointer-events: none !important;
  filter: none !important;
+ visibility: visible !important;
+ pointer-events: auto !important;
+ z-index: 999999 !important;
 }
 
 .scroll-top-btn.btn-visible {
@@ -1036,11 +1011,7 @@ text-align: left !important;
    width: var(--nav-collapsed-width) !important; 
    padding: 72px 4px 20px 4px !important;
  }
- .nav-toggle-inline { 
-   display: flex !important; 
-   right: 8px !important; 
-   top: 8px !important; 
- }
+
 }
 
 /* ==========================================================================
@@ -1062,15 +1033,6 @@ main, section, .section-wrapper, footer, .footer-bleed-container, .custom-footer
 #live-header-anchor, header, .header-grid-layout {
   scroll-snap-align: start !important;
   scroll-snap-stop: always !important;
-}
-
-/* 3. THE ABSOLUTE RECOVERY FIX: Make the Scroll Top Button completely 
-   bulletproof by shifting its presentation over to a native hardware layer */
-.scroll-top-btn {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  z-index: 999999 !important;
 }
 
 /* =========================================================================
@@ -1218,17 +1180,6 @@ html body .left-nav-menu-stack.collapsed .btn-text-label {
 </head>
 
 <body class="splash-in-view">
-
-<!-- Paste this code block anywhere directly inside your <body> tag once -->
-<svg width="0" height="0" style="position: absolute; position: absolute; pointer-events: none;">
-  <defs>
-   <linearGradient id="meta-ai-gradient-profile" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#25D366" />   <!-- Lime Neon Green -->
-      <stop offset="50%" stop-color="#0084FF" />  <!-- Bright Messenger Blue -->
-      <stop offset="100%" stop-color="#D300BB" /> <!-- Vivid Violet Orchid -->
-    </linearGradient>
-  </defs>
-</svg>
 
 <div id="dashboard-splash-wrapper" class="splash-overlay" title="Click or scroll down to enter">
   <div class="splash-content-panel">
@@ -1731,12 +1682,6 @@ main, section, .section-wrapper, footer, .footer-bleed-container, .custom-footer
  overflow: visible !important; /* Forces the full image height and native SVGs to show */
 }
 
-/* 2. COMPLETELY ERASE THE ACCIDENTAL EXTRA TEXT ARROW */
-.partners-logos a.partners-logo-link::after {
- display: none !important;
- content: "" !important;
-}
-
 /* 3. STABILIZE HOVER PHYSICS: Mimics the dev badge text-shadow aura with zero jumping */
 .partners-logos a.partners-logo-link img,
 .partners-logos a.partners-logo-link .csp-safe-tab-vector,
@@ -1775,12 +1720,6 @@ main,
 #main, 
 .section-wrapper, 
 body {
- pointer-events: auto !important;
-}
-
-/* Ensure the nav menu container itself stays clickable on top */
-.left-nav-menu-stack {
- z-index: 999999 !important;
  pointer-events: auto !important;
 }
 
@@ -1949,26 +1888,11 @@ html body .header-card.hc-between.partners-logos {
 
 <style>
 
-
-/* ========================================================
-   2. RE-ANCHOR ALL NAV OPTIONS DIRECTLY TO THE UPPER EDGE
-   ======================================================== */
-.left-nav-menu-stack {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-start !important; /* Moves all items flush to the top edge */
-  align-items: stretch !important;
-  padding: 14px 10px !important;
-  gap: 8px !important; /* Snug, clean layout rhythm */
-}
-
-
-/* ========================================================
-   3. ALIGN COLLAPSED TOGGLE RIGHT & ENSURE CONSTANT VISIBILITY
-   ======================================================== */
-/* Clean, rigid baseline for the toggle button */
 .nav-toggle-inline {
   display: inline-flex !important;
+  display: flex !important; 
+  right: 8px !important; 
+  top: 8px !important; 
   align-items: center !important;
   justify-content: center !important;
   width: 40px !important;
@@ -1982,6 +1906,10 @@ html body .header-card.hc-between.partners-logos {
   opacity: 1 !important;
   visibility: visible !important;
 }
+
+/* ========================================================
+   2. RE-ANCHOR ALL NAV OPTIONS DIRECTLY TO THE UPPER EDGE
+   ======================================================== */
 
 /* Ensure vector graphic strokes are crisp white/amethyst before hover occurs */
 .nav-toggle-inline svg,
@@ -2020,14 +1948,7 @@ html body .header-card.hc-between.partners-logos {
 /* ========================================================
    1. COLLAPSED NAV UPPER ANCHORING (PULLS BUTTONS UPWARD)
    ======================================================== */
-.left-nav-menu-stack.collapsed {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: flex-start !important; /* Forces items flush to the top edge */
-  padding: 6px 0 14px 0 !important; /* Shaves off the excessive top padding */
-  gap: 2px !important; /* Tightens space between consecutive row nodes */
-}
+
 
 /* Slims down the space under the toggle button to lift links up */
 .left-nav-menu-stack.collapsed .nav-toggle-inline {
