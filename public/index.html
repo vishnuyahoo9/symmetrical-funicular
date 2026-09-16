@@ -779,188 +779,188 @@ ul {
 /* ========================================================
  MODULE 6: FIXED FOOTER (SAFE GRID)
  ======================================================== */
-.footer-bleed-container {
- display: flex;
- justify-content: center;
- width: 100%;
- margin-top: 64px;
- position: relative;
- background-color: #DECEEF !important;
- border-top: 1px solid var(--border-muted);
- /* Removed scroll-snap properties — footer is multi-layered and must not snap */
-}
+  .footer-bleed-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 64px;
+  position: relative;
+  background-color: #DECEEF !important;
+  border-top: 1px solid var(--border-muted);
+  /* Removed scroll-snap properties — footer is multi-layered and must not snap */
+  }
 
- /* FIXED: Moves the entire footer grid cleanly to the right of the 50px collapsed sidebar footprint */
-.custom-footer {
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  align-items: center;
-  width: calc(100% - 50px) !important;
-  max-width: 100% !important;
-  margin-left: 50px !important;
-  padding-left: 16px !important;
-  padding-right: 16px !important;
-  box-sizing: border-box;
-  position: relative !important; /* <-- required for absolute separator */
-  max-width: 1000px;
-  margin: 0 auto;
-  padding-left: 24px !important;
-  padding-right: 24px !important;
-}
+  /* FIXED: Moves the entire footer grid cleanly to the right of the 50px collapsed sidebar footprint */
+  .custom-footer {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    align-items: center;
+    width: calc(100% - 50px) !important;
+    max-width: 100% !important;
+    margin-left: 50px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box;
+    position: relative !important; /* <-- required for absolute separator */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
 
-/* Isolated Safe Catch for Global Scroll Snapping */
-.footer-snap-anchor {
-  display: block !important;
-  width: 100% !important;
-  height: 1px !important;
-  margin-top: -1px !important; /* Pulls it safely within layout bounds */
-  visibility: hidden !important;
-  pointer-events: none !important;
-  scroll-snap-align: end !important;
-}
+  /* Isolated Safe Catch for Global Scroll Snapping */
+  .footer-snap-anchor {
+    display: block !important;
+    width: 100% !important;
+    height: 1px !important;
+    margin-top: -1px !important; /* Pulls it safely within layout bounds */
+    visibility: hidden !important;
+    pointer-events: none !important;
+    scroll-snap-align: end !important;
+  }
 
-.custom-footer * {
-  scroll-snap-align: none !important;
-  scroll-snap-stop: normal !important;
-}
+  .custom-footer * {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+  }
 
-/* LOCKS THE VIEWPORT AT THE GENUINE MAIN BODY BASELINE */
-main {
-  scroll-snap-align: end !important;
-}
+  /* LOCKS THE VIEWPORT AT THE GENUINE MAIN BODY BASELINE */
+  main {
+    scroll-snap-align: end !important;
+  }
 
-/* Place vertical separator at ~45% of viewport width from left */
-.footer-vertical-separator {
-  position: absolute;
-  left: 45vw;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2.25px;
-  height: 46px;
-  background-color: #808080;
-  opacity: 0.90;
-  flex-shrink: 0;
-  z-index: 1;
-}
+  /* Place vertical separator at ~45% of viewport width from left */
+  .footer-vertical-separator {
+    position: absolute;
+    left: 45vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.25px;
+    height: 46px;
+    background-color: #808080;
+    opacity: 0.90;
+    flex-shrink: 0;
+    z-index: 1;
+  }
 
-.footer-left-amethyst-zone {
- grid-column: span 3 !important; /* Spans across the first 3 quarters */
- display: flex !important;
- align-items: center !important;
- justify-content: flex-start !important;
- gap: 16px;
- margin-right: auto; /* push the left zone to the left side of the footer container */
-}
+  .footer-left-amethyst-zone {
+  grid-column: span 3 !important; /* Spans across the first 3 quarters */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 16px;
+  margin-right: auto; /* push the left zone to the left side of the footer container */
+  }
 
-.footer-developer-badge { 
-align-items: flex-start !important; 
-text-align: left !important; 
-}
+  .footer-developer-badge { 
+  align-items: flex-start !important; 
+  text-align: left !important; 
+  }
 
-.footer-left-amethyst-zone .footer-copyright {
-  font-size: 1.10rem;
-  font-weight: 600;
-  color: #1c2a42;
-  white-space: nowrap;
-  padding-bottom: 50px;
-}
+  .footer-left-amethyst-zone .footer-copyright {
+    font-size: 1.10rem;
+    font-weight: 600;
+    color: #1c2a42;
+    white-space: nowrap;
+    padding-bottom: 50px;
+  }
 
-.footer-left-amethyst-zone .footer-developer-badge .line-1 {
-  font-size: 0.60rem;
-  text-transform: none;
-  letter-spacing: 0.08em;
-  margin-bottom: 1px;
-}
+  .footer-left-amethyst-zone .footer-developer-badge .line-1 {
+    font-size: 0.60rem;
+    text-transform: none;
+    letter-spacing: 0.08em;
+    margin-bottom: 1px;
+  }
 
-.footer-left-amethyst-zone .footer-developer-badge .line-2 {
-  font-size: 1rem;
-}
+  .footer-left-amethyst-zone .footer-developer-badge .line-2 {
+    font-size: 1rem;
+  }
 
-/* Target your exact badge structure using your #1c2a42 navy text color and 600 weight */
-.footer-left-amethyst-zone .footer-developer-badge .line-1, 
-.footer-left-amethyst-zone .footer-developer-badge .line-2 {
- color: #1c2a42 !important; 
- font-weight: 600 !important; 
- background: transparent !important;
- transition: text-shadow 0.2s ease !important;
-}
+  /* Target your exact badge structure using your #1c2a42 navy text color and 600 weight */
+  .footer-left-amethyst-zone .footer-developer-badge .line-1, 
+  .footer-left-amethyst-zone .footer-developer-badge .line-2 {
+  color: #1c2a42 !important; 
+  font-weight: 600 !important; 
+  background: transparent !important;
+  transition: text-shadow 0.2s ease !important;
+  }
 
-.footer-badge-line-combo {
+  .footer-badge-line-combo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 50px;
+  }
+
+  .footer-developer-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    background: none;
+    border: none;
+    justify-content: center;
+    text-align: right;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .footer-right-dark-zone {
+  grid-column: 4 / 5 !important; /* Sits exactly inside the 4th box (the 3rd quarter mark boundary) */
+  background-color: transparent !important; /* Inherits main color cleanly */
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding-bottom: 50px;
-}
+  justify-content: flex-start; /* Aligns left at the beginning of the final quarter */
+  padding: 16px 0;
+  }
 
-.footer-developer-badge {
+  .footer-quarter-alignment-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: right;
-  background: none;
-  border: none;
-  justify-content: center;
-  text-align: right;
-  padding: 0;
-  white-space: nowrap;
-}
+  align-items: flex-start;
+  gap: 6px;
+  width: auto;
+  }
 
-.footer-right-dark-zone {
- grid-column: 4 / 5 !important; /* Sits exactly inside the 4th box (the 3rd quarter mark boundary) */
- background-color: transparent !important; /* Inherits main color cleanly */
- display: flex;
- align-items: center;
- justify-content: flex-start; /* Aligns left at the beginning of the final quarter */
- padding: 16px 0;
-}
+  .footer-btn-heading,
+  .footer-btn-heading p {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: #1c2a42 !important;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
 
-.footer-quarter-alignment-wrapper {
- display: flex;
- flex-direction: column;
- align-items: flex-start;
- gap: 6px;
- width: auto;
-}
+  .footer-links-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    width: 100%;
+  }
 
-.footer-btn-heading,
-.footer-btn-heading p {
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  color: #1c2a42 !important;
-  font-weight: 600;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-}
+  .footer-btn {
+    background: #1c2a42;
+    color: var(--text-main);
+    padding: 0;
+    border-radius: 6px;
+    border: 1px solid var(--border-muted);
+    height: 34px;
+    width: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
 
-.footer-links-cluster {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-  width: 100%;
-}
-
-.footer-btn {
-  background: #1c2a42;
-  color: var(--text-main);
-  padding: 0;
-  border-radius: 6px;
-  border: 1px solid var(--border-muted);
-  height: 34px;
-  width: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-.footer-btn img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+  .footer-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
 .nav-stack-heading {
   font-size: 0.75rem;
@@ -1455,9 +1455,9 @@ html body .left-nav-menu-stack.collapsed .btn-text-label {
         </a>
       </div>
 
-      <!-- 4. Privacy Policy Link: Exact CSS Clone of the Google Dev Badge line-2 typography -->
-	<div class="footer-privacy-link">
-	     <a href="/privacy.html" target="_blank" class="footer-privacy-link" style="
+      <!-- 4. Privacy Policy Link: Exact CSS Match For Horizontal Alignment -->
+<div class="footer-privacy-link" style="display: inline-block; vertical-align: middle; padding-bottom: 50px;">
+     <a href="/privacy.html" target="_blank" class="footer-privacy-link" style="
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 1rem;
         font-weight: 600;
@@ -1465,12 +1465,14 @@ html body .left-nav-menu-stack.collapsed .btn-text-label {
         text-transform: none;
         color: #1c2a42;
         text-decoration: none;
-	      background: transparent !important;
-	      transition: text-shadow 0.2s ease !important;
+        background: transparent !important;
+        transition: text-shadow 0.2s ease !important;
         margin-left: 17px;
         display: inline-block;
+        vertical-align: middle;
         " onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='1'">Privacy & Data</a>
-	</div>
+</div>
+
 	
 <!-- 5. Terms of use Link: Exact CSS Clone of the Google Dev Badge line-2 typography -->
 <div class="footer-terms-link">
