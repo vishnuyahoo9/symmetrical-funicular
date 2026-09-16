@@ -465,38 +465,6 @@ li strong {
   display: none !important;
 }
 
-.header-grid-layout {
-  display: flex;
-  width: 100vw;
-  height: 82px;
-  background-color: var(--bg-card);
-  margin-top: 0px;
-  margin-bottom: 40px;
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
-}
-
-main {
-  position: relative;
-  z-index: 2;
-  background-color: var(--bg-main);
-  width: 100%;
-  scroll-snap-align: start !important;
-}
-
-.brand-left-container {
-  display: flex;
-  width: auto;
-  height: auto;
-}
-
-.aligned-header-logo {
-  display: flex;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
 .partners-outer-wrapper {
   width: 100%;
   max-width: 1000px;
@@ -1189,12 +1157,45 @@ html body .left-nav-menu-stack.collapsed .btn-text-label {
   <div class="splash-ibm-arrow">↓</div>
   </div>
 </div>
-  <header class="header-grid-layout" id="live-header-anchor">
-  <div class="brand-left-container">
-  <img src="logo.png" class="aligned-header-logo" alt="Velopipe Logo">
+
+<!-- Fixed Width Navbar Container Layout Block -->
+<header class="header-grid-layout" id="live-header-anchor" style="
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: flex-start !important; 
+  width: 100% !important; /* FIXED: Overrides 100vw to drop the layout spill */
+  max-width: 100% !important;
+  height: 82px !important; 
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+">
+  <div class="brand-left-container" style="
+    display: flex !important; 
+    align-items: center !important; 
+    width: auto !important; 
+    height: 100% !important; 
+    padding-left: 24px !important; /* FIXED: Forces a structural buffer wall */
+    margin-left: 0 !important; 
+    box-sizing: border-box !important;
+  ">
+    <a href="/" style="display: block !important; background: transparent !important; border: none !important; padding: 0 !important; margin: 0 !important;">
+      <img src="/logo.png" class="aligned-header-logo" alt="Velopipe Logo" style="
+        display: block !important; 
+        height: 42px !important; /* FIXED: Strict axis scaling inside the 82px wrapper */
+        width: auto !important; 
+        max-width: none !important;
+        object-fit: contain !important; 
+        margin: 0 !important; 
+        padding: 0 !important; 
+        transform: none !important; 
+        flex-shrink: 0 !important; /* FIXED: Stops Flexbox from crushing it */
+      ">
+    </a>
   </div>
-  </header>
-  <main style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; box-sizing: border-box;">
+</header>
+
+<main style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1000px; margin: 0 auto; box-sizing: border-box;">
 
   <div class="partners-outer-wrapper" style="width: 100%; max-width: 1000px;">
   <section class="body-partners-section" style="max-width: 1000px; width: 100%;">
