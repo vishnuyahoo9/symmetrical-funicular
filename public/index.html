@@ -485,16 +485,20 @@ main {
 }
 
 .brand-left-container {
-  display: flex;
-  width: auto;
-  height: auto;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    flex: 0 0 auto;
 }
 
 .aligned-header-logo {
-  display: flex;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+    display: block;
+    width: auto;
+    height: 42px;
+    max-width: none;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .partners-outer-wrapper {
@@ -1201,11 +1205,9 @@ html body .left-nav-menu-stack.collapsed .btn-text-label {
   box-sizing: border-box !important;
   padding-left: 16px !important;
 ">
-  <div class="brand-left-container" style="display: flex !important; align-items: center !important; width: auto !important; height: 100% !important;">
-    <a href="/" style="display: block !important; background: transparent !important; border: none !important;">
-      <img src="/logo.png" class="aligned-header-logo" alt="Velopipe Logo" style="display: block !important; height: 42px !important; width: auto !important; object-fit: contain !important; flex-shrink: 0 !important;">
-    </a>
-  </div>
+<div class="brand-left-container">
+    <img src="/logo.png" class="aligned-header-logo" alt="Velopipe Logo">
+</div>
 </header>
 
 <!-- LEAVE THIS LINE EXACTLY AS IT IS BELOW IT -->
